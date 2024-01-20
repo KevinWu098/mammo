@@ -52,7 +52,10 @@ const config = {
                     light: "#885EFF",
                     DEFAULT: "#3bb8ff",
                     black: "#7aefff",
-                    grey: "#808080",
+                    grey: "#7E7E7E",
+                    "grey-light": "#F0F2F6",
+                    "grey-dark": "#5F5F5F",
+                    "grey-medium": "#E5E5E5",
                 },
 
                 primary: {

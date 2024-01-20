@@ -8,7 +8,7 @@ interface PageSidebarSlotProps {
 function PageSidebarSlot(props: PageSidebarSlotProps) {
     return (
         <div className="w-full">
-            <div className="bg-jas-grey-light rounded-2xl m-4 py-2 px-4 w-full flex gap-2 items-center">
+            <div className="bg-jas-grey-light rounded-2xl  py-2 px-4 w-full flex gap-2 items-center">
                 <div className="bg-jas p-2 rounded-lg">{props.icon}</div>
                 <h1 className="text-2xl font-bold">{props.title}</h1>
             </div>

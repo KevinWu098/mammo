@@ -29,7 +29,7 @@ export default function RootLayout({
             <Providers>
                 <body className={cn(inter.className)}>
                     <main className="h-screen flex w-full">
-                        <div className="w-52 bg-white flex-col py-64 justify-center">
+                        <div className=" flex w-1/6 bg-white flex-col py-64 items-center pl-4 gap-4">
                             <PageSidebarSlot
                                 title="home"
                                 icon={<Home fill="white" strokeWidth={0} />}
