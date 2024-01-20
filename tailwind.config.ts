@@ -48,6 +48,13 @@ const config = {
                 ring: "hsl(var(--ring))",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
+                jas: {
+                    light: "#885EFF",
+                    DEFAULT: "#3bb8ff",
+                    black: "#7aefff",
+                    grey: "#808080",
+                },
+
                 primary: {
                     DEFAULT: "#020817",
                     foreground: "hsl(var(--primary-foreground))",
