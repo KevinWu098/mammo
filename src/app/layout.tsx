@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Providers from "@/components/Providers";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -24,8 +25,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <Providers>
-                <body className={inter.className}>
-                    <main>{children}</main>
+                <body className={cn(inter.className)}>
+                    <main className="h-screen flex w-full">
+                        <div className="w-52 bg-white"> </div>
+                        <div className="flex-1 p-8">{children}</div>
+                    </main>
                 </body>
             </Providers>
         </html>
