@@ -56,6 +56,7 @@ const config = {
                     grey: "#808080",
                     grey_light: "#F0F2F6",
                     grey_dark: "#A2A2A2",
+                    grey_medium: "#E5E5E5",
                 },
 
                 primary: {
