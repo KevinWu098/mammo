@@ -105,11 +105,11 @@ const Screenings = (props: Screenings) => {
                         </CardHeader>
                         <CardContent className="flex-center pt-6 gap-x-2">
                             <Button className="rounded-xl bg-jas-grey_dark text-white hover:bg-jas-grey_dark/80">
-                                Export Screening
+                                view scan
                             </Button>
 
                             <Button className="bg-jas-blue rounded-xl hover:bg-jas-blue/80">
-                                Export Screening
+                                send
                             </Button>
                         </CardContent>
                     </Card>
