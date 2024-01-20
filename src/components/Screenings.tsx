@@ -23,13 +23,7 @@ const Screenings = (props: Screenings) => {
             : props.screenings.sort((a, b) => b.severity - a.severity);
 
     return (
-        <div className="flex flex-col w-full h-full mt-16">
-            <div className="flex-between w-full mb-16">
-                <h1 className="text-5xl font-bold">Your Screenings</h1>
-
-                <Button className="text-lg p-5">Export All</Button>
-            </div>
-
+        <>
             <div className="space-x-4 mb-6">
                 <span className="text-xl font-semibold">Sort by:</span>
                 <Button
@@ -82,7 +76,7 @@ const Screenings = (props: Screenings) => {
                     </Card>
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 

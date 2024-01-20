@@ -1,6 +1,7 @@
 import ProfileForm from "@/components/ProfileForm";
 import Screenings from "@/components/Screenings";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export type Screening = {
@@ -39,7 +40,15 @@ const SCREENINGS: Screening[] = [
 const Page = () => {
     return (
         <div className="ml-32 flex justify-center min-h-[calc(100vh-6rem)] space-x-48">
-            <Screenings screenings={SCREENINGS} />
+            <div className="flex flex-col w-full h-full mt-16">
+                <div className="flex-between w-full mb-16">
+                    <h1 className="text-5xl font-bold">Your Screenings</h1>
+
+                    <Button className="text-lg p-5">Export All</Button>
+                </div>
+
+                <Screenings screenings={SCREENINGS} />
+            </div>
 
             <Card className="min-w-[500px] h-[100vh] rounded-none">
                 <CardHeader className="flex-center flex-col gap-y-4 text-4xl mt-16">
