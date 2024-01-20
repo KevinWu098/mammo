@@ -4,15 +4,42 @@ import { useState } from "react";
 import { Screening } from "@/app/dashboard/page";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { Clock, Filter, ListFilter } from "lucide-react";
+
+export type Filter_Option = {
+    value: "recent" | "severity" | "scan";
+    label: string;
+};
+const Filter_Options: Filter_Option[] = [
+    {
+        value: "recent",
+        label: "most recent",
+    },
+    {
+        value: "severity",
+        label: "severity",
+    },
+    {
+        value: "scan",
+        label: "scan included",
+    },
+];
 
 interface Screenings {
     screenings: Screening[];
 }
 
 const Screenings = (props: Screenings) => {
-    const [sort, setSort] = useState<"recent" | "severity">("recent");
+    const [sort, setSort] = useState<"recent" | "severity" | "scan">("recent");
 
     const screenings =
         sort == "recent"
@@ -24,58 +51,70 @@ const Screenings = (props: Screenings) => {
 
     return (
         <>
-            <div className="space-x-4 mb-6">
-                <span className="text-xl font-semibold">Sort by:</span>
-                <Button
-                    className={cn(
-                        "text-lg p-5",
-                        sort == "recent" && "bg-green-500 hover:bg-green-500",
-                    )}
-                    onClick={() => setSort("recent")}
-                >
-                    Recent
-                </Button>
-                <Button
-                    className={cn(
-                        "text-lg p-5",
-                        sort == "severity" && "bg-green-500 hover:bg-green-500",
-                    )}
-                    onClick={() => setSort("severity")}
-                >
-                    Severity
-                </Button>
+            <div className="space-x-4 mb-2 flex items-center flex-row ">
+                <div className="bg-jas-grey_dark p-2 rounded-lg">
+                    <ListFilter />
+                </div>
+                {Filter_Options.map((filter, index) => (
+                    <Button
+                        className={cn(
+                            "rounded-lg font-semibold",
+                            sort == filter.value &&
+                                "bg-jas-blue hover:bg-jas-blue/80",
+                        )}
+                        onClick={() => setSort(filter.value)}
+                    >
+                        {filter.label}
+                    </Button>
+                ))}
             </div>
 
-            <div className="flex flex-col gap-y-4 overflow-scroll h-[550px]">
-                {screenings.map((screening, index) => (
+            {/* <div className="flex flex-col gap-y-4 overflow-scroll h-[550px]"> */}
+            <ScrollArea className="flex flex-col space-y-4 h-[585px] rounded-md">
+                {screenings.map((screening) => (
                     <Card
-                        className="flex-between flex-row rounded-sm h-fit"
+                        className="flex-between flex-row rounded-2xl h-fit mb-4 border-0"
                         key={screening.id}
                     >
                         <CardHeader className="flex flex-row flex-center gap-x-4">
+                            <div className="text-3xl font-bold bg-jas-grey_light size-20 flex-center rounded-2xl">
+                                {screening.severity.toString().padStart(2, "0")}
+                            </div>
+
                             <div className="flex flex-col gap-y-2">
-                                <CardTitle className="text-3xl">
-                                    {screening.severity} - Healthy
-                                </CardTitle>
+                                <div>
+                                    <CardDescription className="text-xs font-semibold text-black opacity-50">
+                                        HEALTH SCORE
+                                    </CardDescription>
+                                    <CardTitle className="text-3xl font-bold">
+                                        Healthy
+                                    </CardTitle>
+                                </div>
 
                                 {/* use tooltip? */}
                                 <div className="flex flex-row gap-x-2">
-                                    <Badge className="p-2 w-fit">
-                                        {screening.date}
+                                    <Badge className="p-2 w-fit rounded-xl flex gap-x-2 border-2 text-[#8B8B8B] font-bold bg-[#F2F2F2] hover:bg-[#F2F2F2]">
+                                        <Clock
+                                            className="size-4 text-[#F2F2F2]"
+                                            fill="#737373"
+                                        />
+                                        <span>{screening.date}</span>
                                     </Badge>
-                                    {/* <Badge className="p-2 w-fit">
-                                {screening.severity} / 100
-                            </Badge> */}
                                 </div>
                             </div>
                         </CardHeader>
+                        <CardContent className="flex-center pt-6 gap-x-2">
+                            <Button className="rounded-xl bg-jas-grey_dark text-white hover:bg-jas-grey_dark/80">
+                                Export Screening
+                            </Button>
 
-                        <CardContent className="flex-center pt-6">
-                            <Button>Export Screening</Button>
+                            <Button className="bg-jas-blue rounded-xl hover:bg-jas-blue/80">
+                                Export Screening
+                            </Button>
                         </CardContent>
                     </Card>
                 ))}
-            </div>
+            </ScrollArea>
         </>
     );
 };
