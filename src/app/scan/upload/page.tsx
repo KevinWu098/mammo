@@ -91,8 +91,8 @@ const Page = () => {
   };
 
   if (submitted || segmentedImage) {
-    const segmentedImage =
-      "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg";
+    // const segmentedImage =
+    //   "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg";
 
     return submitted && !segmentedImage ? (
       <Loading fileSize={30} />
@@ -201,9 +201,12 @@ const Page = () => {
                 )}
               />
 
-              <Button style={{zIndex:'1000'}} className="bg-jas-blue rounded-lg font-bold text-lg  p-6 no-underline ">
-            Select a file from your computer
-          </Button>
+              <Button
+                style={{ zIndex: "1000" }}
+                className="bg-jas-blue rounded-lg font-bold text-lg  p-6 no-underline "
+              >
+                Select a file from your computer
+              </Button>
             </>
           )}
         </div>
