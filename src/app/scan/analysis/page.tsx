@@ -5,7 +5,7 @@ import IconizedBadge from "@/components/IconizedBadge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertTriangle, MapPin, ScrollText } from "lucide-react";
-import Loading from "../load/loading";
+import Loading from "../load/Loading";
 
 const Page = () => {
     return (<Loading fileSize={30}/> ||

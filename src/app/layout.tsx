@@ -31,7 +31,7 @@ export default function RootLayout({
       <Providers>
         <body className={cn(inter.className)}>
           <main className="h-screen flex w-full relative">
-            <div className="flex gap-2 absolute left-4 top-4 items-center">
+            <div className="flex gap-2 absolute left-4 top-8 items-center">
               <Image
                 src={"/logo.svg"}
                 width={60}

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import ActionCard from "@/components/ActionCard";
 import ActionItem from "@/components/ActionItem";
+import AssistantChatBubble from "@/components/AssistantChatBubble";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Check from "@/components/ui/check";
@@ -12,7 +13,6 @@ import { Separator } from "@/components/ui/separator";
 import { SelfLoveTag } from "@/components/ui/tag";
 import { useChat } from "ai/react";
 import { ArrowUp, Loader2, MoveDiagonal, Plus, Sparkles } from "lucide-react";
-import AssistantChatBubble from "@/components/AssistantChatBubble";
 
 const messages = [
   { id: 1, role: "user", content: "What should I eat?" },
@@ -145,7 +145,32 @@ export default function Chat() {
                     )}
                   </div>
                 ) : (
-                  <AssistantChatBubble index={index} messages={messages} m={m} actions={actions} setAction={setActions} />
+                  <>
+                    <AssistantChatBubble
+                      index={index}
+                      messages={messages}
+                      m={m}
+                      actions={actions}
+                      setAction={setActions}
+                    />
+                    <div className="flex flex-col items-center justify-center mt-4">
+                      <div className="mx-auto">
+                        <span className="font-bold text-xl text-black text-opacity-50  text-center">
+                          Ask a follow-up question
+                        </span>
+                      </div>
+                      <div className="flex flex-row gap-x-4">
+                        <Button className="mx-auto mt-4 flex flex-row gap-x-2 rounded-xl bg-jas-grey_light text-back hover:bg-jas-grey_light/80">
+                          <MoveDiagonal />
+                          <span>elaborate</span>
+                        </Button>
+                        <Button className="mx-auto mt-4 flex flex-row gap-x-2 rounded-xl bg-jas-grey_light text-back hover:bg-jas-grey_light/80">
+                          <Sparkles />
+                          <span>recommend</span>
+                        </Button>
+                      </div>
+                    </div>
+                  </>
                 )}
               </div>
             ))}
