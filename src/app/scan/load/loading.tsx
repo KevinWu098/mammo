@@ -2,9 +2,8 @@
 
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { Progress } from "@/components/ui/progress";
-
 import loadicon from "../../../../public/loadingAnimationMem.svg";
+import { Progress } from "@/components/ui/progress";
 
 const Loading = ({ fileSize }: { fileSize: number }) => {
   const percentage = Math.floor((fileSize / 90) * 100);
