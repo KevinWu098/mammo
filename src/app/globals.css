@@ -76,25 +76,51 @@
     html {
         font-family: "Inter", system-ui, sans-serif;
     }
-
+    
     .landing-contain {
         display: grid;
         place-content: center;
-        height: 60vh;
-        margin-top: 70vh;
+        height: 80vh;
+        margin-top: 50vh;
         justify-items: center;
+        justify-content: center;
+        align-items: center;
     }
+    .ai-contain {
+        background-color: #282B34;
+        height: fit-content;
+        padding: 36px 0px;
+        width: 100vw;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .ai-contain h1 {
+        color: #fff;
+
+    }
+ 
+    .landing-contain h1 span, .ai-contain h1 span {
+        color: #0094FF;
+    }
+ 
     .features-contain {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 22px;
-        margin-top: 20px;
+        margin-top: 40px;
     }
     .feature-item {
         border-radius: 40px;
         padding: 36px;
         background-color: #F0F2F6;
         max-width: 400px;
+        gap: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
     }
     .nav-bar {
         width: 100vw;

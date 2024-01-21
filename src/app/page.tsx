@@ -31,19 +31,25 @@ export default function Home() {
         <div>
           <Image
             src={"/mammothLogo.png"}
-            width={150}
+            width={180}
             alt="mammoth logo"
-            height={40}
+            height={50}
             className=""
           />
         </div>
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-12">
           <Link
             href={"/scan/upload"}
             className=" no-underline  text-jas-grey_dark text-lg font-semibold hover:text-jas-grey"
             style={{ textDecoration: "none" }}
           >
             Features
+          </Link>
+          <Link
+            href={"/dashboard"}
+            className="no-underline text-jas-grey_dark text-lg font-semibold hover:text-jas-grey"
+          >
+            Pricing
           </Link>
           <Link
             href={"/dashboard"}
@@ -87,18 +93,18 @@ export default function Home() {
           />
           <div className="flex flex-col gap-8">
             <h1
-              className="text-5xl font-extrabold text-center"
-              style={{ zIndex: "1000", padding: "0 10vw", width: '1000px' }}
+              className=" font-extrabold text-center"
+              style={{ fontSize:"3.5em", lineHeight: "1.1",zIndex: "1000", padding: "0 10vw", width: '1000px' }}
             >
               Get <span style={{ color: "#0094FF" }}>✓</span>affordable,{" "}
               <span style={{ color: "#0094FF" }}>→</span>quick, actionable
               cancer insights. completely free.
             </h1>
-            <div className="flex-center flex-col g-18">
+            <div className="flex-center flex flex-col g-22">
               <Link href={"/scan/upload"}>
                 <Button
-                  style={{ zIndex: "1000" }}
-                  className="bg-jas-blue rounded-lg font-bold text-xl  p-6 no-underline "
+                  style={{ zIndex: "1000", padding:'30px', borderRadius: '22px'}}
+                  className="bg-jas-blue font-bold text-xl no-underline "
                 >
                 Scan your file now
                 </Button>
@@ -115,7 +121,7 @@ export default function Home() {
         {/* features */}
         <div className="landing-contain">
           <div className="tag font-semibold bg-jas-grey_light p-2 rounded-2xl flex items-center w-fit">
-            Generative AI
+            Platform
           </div>
           <h1
             className=" text-5xl font-extrabold text-center z-[1000]"
@@ -125,7 +131,7 @@ export default function Home() {
           </h1>
           <div className="features-contain">
             <div className="feature-item">
-              <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
+              <div className="tag-mini text-md font-semibold p-2 rounded-lg" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
                 live feedback
               </div>
               <h3 className="font-extrabold text-3xl">Computer Vision Screening</h3>
@@ -140,11 +146,11 @@ Try CV now →
               </Link>
             </div>
             <div className="feature-item">
-              <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
+              <div className="tag-mini text-md font-semibold p-2 rounded-lg" style={{color:'#FF3357', width: 'fit-content', backgroundColor:'#FFDCE2'}}>
                 resources
               </div>
-              <h3 className="font-extrabold text-3xl">Gnerative AI Recommendations</h3>
-              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>resources generated using cutting-edge AI to guide your healthcare.</p>
+              <h3 className="font-extrabold text-3xl">AI-driven resources and tools</h3>
+              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>receive personalized, action-orientated resources.</p>
               <Link href="/chat">
               <Button
 style={{padding:'0'}}
@@ -156,11 +162,11 @@ Try AI now →
               </Link>
             </div>
             <div className="feature-item">
-              <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
+              <div className="tag-mini text-md font-semibold p-2 rounded-lg" style={{color:'#0094FF', width: 'fit-content', backgroundColor:'#C3E6FF'}}>
                 tracking
               </div>
-              <h3 className="font-extrabold text-3xl">Computer Vision screening</h3>
-              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>real-time, visual representation of problem areas.</p>
+              <h3 className="font-extrabold text-3xl">Free, comprehensive reports</h3>
+              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>receive full reports on your health to track over time. </p>
               <Link href="/scan/upload">
               <Button
 style={{padding:'0'}}
@@ -173,18 +179,42 @@ Try CV now →
             </div>
           </div>
         </div>
+        {/* ai thing */}
+        <div className="ai-contain">
+        <div className="tag font-semibold bg-jas-[#C8C8C8] p-2 rounded-2xl flex items-center w-fit" style={{color: '#3A3D46'}}>
+            Generative AI
+          </div>
+          <h1
+            className=" text-5xl font-extrabold text-center z-[1000]"
+            style={{ zIndex: 1000, maxWidth:'700px' }}
+          >
+            Don’t just get information
+AI helps you <span>take action.</span>
+          </h1>
+          <Image
+            src={"/genai.svg"}
+            alt="mammoth logo"
+            width={180}
+            height={140}
+            className="w-full"
+            style={{maxWidth:"1000px"}}
+            
+          />
+        </div>
+        {/* footer */}
+      
+      <div className="flex center items-center align-center justify-center h-15vh relative bg-[#fff]">
+      <div className="hr">
+        <hr /> </div>
+        <p className="font-semibold">made with ♥︎ & lots of ☕️ @ UCR</p>
+        </div>
         
       </motion.div>
-      {/* footer */}
       
-      <div className="flex center items-center align-center justify-center h-10vh">
-      <div className="hr">
-        <hr />
-        <p className="font-semibold">made with ♥︎ & lots of ☕️ @ UCR</p>
-     </div>
+    
       
 
-      </div>
+    
     </main>
   );
 }
