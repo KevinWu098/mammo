@@ -189,11 +189,13 @@ export default function Chat() {
             value={input}
             placeholder="Say something..."
             onChange={handleInputChange}
-            className="w-full py-6 text-lg border-0 bg-jas-grey_light rounded-xl"
+            className="input-form w-full py-6 text-lg border-0 bg-jas-grey_light rounded-xl hover:border-blue-500 focus:border-blue-500 focus:outline-none"
           />
 
           <Button type="submit" className="h-12 w-12 rounded-xl">
-            <ArrowUp />
+            <ArrowUp 
+            style={{fontSize:'30px'}}
+            />
           </Button>
         </form>
       </div>

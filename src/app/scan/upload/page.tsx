@@ -80,13 +80,13 @@ const Page = () => {
         <h1 className="text-5xl font-extrabold">Upload your screening.</h1>
         <h1 className="text-5xl font-extrabold">Receive immediate feedback</h1>
         <h4 className="text-2xl font-bold text-jas-grey_dark">works with</h4>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-4 justify-center text-2xl">
           <IconizedBadge icon={<Stethoscope />} title="breast cancer" />
           <IconizedBadge icon={<HeartPulse />} title="heart health" />
         </div>
       </div>
 
-      <Card className="flex bottom-4 outline-dashed outline-4 outline-jas-grey">
+      <Card className="flex bottom-4 outline-dashed outline-4 outline-jas-grey rounded-xl">
         <div
           className={cn(
             "flex flex-col py-8 w-[40rem] justify-center items-center px-32 gap-6",
@@ -119,9 +119,9 @@ const Page = () => {
                 )}
               />
 
-              <h1 className="font-bold text-3xl text-jas-grey_dark text-center">
-                Select a file from a computer
-              </h1>
+              <Button style={{zIndex:'1000'}} className="bg-jas-blue rounded-lg font-bold text-lg  p-6 no-underline ">
+            Select a file from your computer
+          </Button>
             </>
           )}
         </div>
