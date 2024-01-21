@@ -76,6 +76,34 @@
     html {
         font-family: "Inter", system-ui, sans-serif;
     }
+
+    .landing-contain {
+        display: grid;
+        place-content: center;
+        height: 60vh;
+        margin-top: 70vh;
+        justify-items: center;
+    }
+    .features-contain {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        margin-top: 20px;
+    }
+    .feature-item {
+        border-radius: 40px;
+        padding: 36px;
+        background-color: #F0F2F6;
+        max-width: 400px;
+    }
+    .nav-bar {
+        width: 100vw;
+        padding: 0px 36px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
 }
 
 @layer utilities {

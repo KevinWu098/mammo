@@ -25,8 +25,8 @@ export default async function Home() {
     <main className="w-full">
       {/* nav bar */}
       <div
-        style={{ zIndex: "1000"}}
-        className="nav-bar flex flex-row items-center justify-center align-center  w-full-screen p-1"
+        style={{ zIndex: "1000", padding: '0px 22px'}}
+        className="nav-bar flex flex-row items-center  align-center  w-full-screen p-1"
       >
         <div>
           <Image
@@ -166,7 +166,18 @@ Try CV now →
             </div>
           </div>
         </div>
+        
       </motion.div>
+      {/* footer */}
+      
+      <div className="flex center items-center align-center justify-center h-10vh">
+      <div className="hr">
+        <hr />
+        <p className="font-semibold">made with ♥︎ & lots of ☕️ @ UCR</p>
+     </div>
+      
+
+      </div>
     </main>
   );
 }
