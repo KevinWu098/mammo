@@ -99,12 +99,12 @@ export default function Home() {
                 lineHeight: "1.1",
                 zIndex: "1000",
                 padding: "0 10vw",
-                width: "1000px",
+                width: "1200px",
               }}
             >
-              Get <span style={{ color: "#0094FF" }}>✓</span>affordable,{" "}
-              <span style={{ color: "#0094FF" }}>→</span>quick, actionable
-              cancer insights. completely free.
+              Get <span style={{ color: "#0094FF" }}>✓</span>affordable,
+              <span style={{ color: "#0094FF" }}> → </span>
+              quick, actionable cancer insights. completely free.
             </h1>
             <div className="flex-center flex flex-col g-22">
               <Link href={"/scan/upload"}>

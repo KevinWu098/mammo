@@ -102,6 +102,7 @@ const Analysis = ({ image: segmentedImage, coordinates }) => {
               title: "Visit a local doctor",
               Tag: <LocationTag />,
               link: "https://google.com",
+              special: "location",
             }}
           />
         </div>
@@ -111,6 +112,7 @@ const Analysis = ({ image: segmentedImage, coordinates }) => {
               title: "Eat more fiber",
               Tag: <DietTag />,
               link: "https://google.com",
+              special: "diet",
             }}
           />
         </div>
