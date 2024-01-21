@@ -34,48 +34,6 @@ export async function POST(
     const reqJSON = await request.json();
     const question = reqJSON.data;
 
-    // const GeminiContent: Message[] = [
-    //     // give context to Gemini: must be an even amount of stuff, starting with user, model, then user, etc
-    //     // https://github.com/songquanpeng/one-api/issues/836#issuecomment-1859646123
-    //     {
-    //         id: "prompt-engineering-1",
-    //         role: "user",
-    //         content: "Who are you?"
-    //     }, {
-    //         id: "prompt-engineering-2",
-    //         role: "assistant",
-    //         content: "I am roleplaying as a breast cancer doctor/advisor. I do not give medical diagnoses. If asked for a medical diagnosis, I will tell you to consult a licensed doctor. I focus on recommending lifestyle changes and actions to people who are suffering from breast cancer to make their lives better."
-    //     }, {
-    //         id: "prompt-engineering-3",
-    //         role: "user",
-    //         content: "What format will you respond to me in?"
-    //     }, {
-    //         id: "prompt-engineering-4",
-    //         role: "assistant",
-    //         content: `I will answer in a array format. If I answer a question, say some text, or simply respond, I prefix it with "TEXT:". If I recommend some sort of action you should take, I will prefix each action with "ACTION:". If I link something, I will prefix it with "ACTION_LINK:". I will include an ACTION_LINK for every ACTION. The ACTION_LINK will be something that I will search up online. For example, if I am encouraging you to eat a certain food like broccoli, I will give an ACTION_LINK to search up, "where to buy broccoli". For example, if I am recommending exercise, I will suggest: ". For each step/response "group" with related ACTION, ACTION_LINK, and TEXT, I will present it as a nested array of strings. Here is an example output: [["ACTION: Eat plenty of foods filled with antioxidants, such as strawberries." "ACTION_LINK: Where to buy strawberries", "TEXT: Antioxidants help protect cells from damage."], ["ACTION: Live an active lifestyle.", "ACTION_LINK: Easy exercises at home", "TEXT: Living a healthy, active lifestyle will boost mood and strengthen your body."]].`
-    //     }, {
-    //         id: "user-question-1",
-    //         role: "user",
-    //         content: question
-    //     }
-    // ]
-
-    // const geminiStream = await genAI
-    //     .getGenerativeModel({ model: 'gemini-pro' })
-    //     .generateContentStream(buildGoogleGenAIPrompt(GeminiContent));
-
-    // // Convert the response into a friendly text-stream
-    // const stream = GoogleGenerativeAIStream(geminiStream);
-
-    // const aiStream = new StreamingTextResponse(stream);
-
-    // console.log(aiStream);
-
-    // const jsonStream = await aiStream.json();
-
-    // // Respond with the stream
-    // return jsonStream;
-
     // generate an API key: https://makersuite.google.com/app/prompts/new_chat
     if (!process.env.GEMINI_API_KEY) {
         return NextResponse.json(
@@ -115,9 +73,9 @@ export async function POST(
                 },
             },
             {
-                role: "model",
-                parts: {
-                    text: "I am roleplaying as a breast cancer doctor/advisor. I do not give medical diagnoses. If asked for a medical diagnosis, I will tell you to consult a licensed doctor. I focus on recommending lifestyle changes and actions to people who are suffering from breast cancer to make their lives better.",
+                "role": "model",
+                "parts": {
+                    "text": "I am roleplaying as a breast cancer doctor/advisor. I do not give medical diagnoses. If asked for a medical diagnosis, I will tell you to consult a licensed doctor. I can only recommend lifestyle changes and actions that someone suffering from breast cancer can take to make their lives better."
                 },
             },
             // {
@@ -133,9 +91,21 @@ export async function POST(
                 },
             },
             {
-                role: "model",
-                parts: {
-                    text: `I will answer in a array format. If I answer a question, say some text, or simply respond, I prefix it with "TEXT:". If I recommend some sort of action you should take, I will prefix each action with "ACTION:". If I link something, I will prefix it with "ACTION_LINK:". I will include an ACTION_LINK for every ACTION. The ACTION_LINK will be something that I will search up online. For example, if I am encouraging you to eat a certain food like broccoli, I will give an ACTION_LINK to search up, "where to buy broccoli". For example, if I am recommending exercise, I will suggest: ". For each step/response "group" with related ACTION, ACTION_LINK, and TEXT, I will present it as a nested array of strings. Here is an example output: [["ACTION: Eat plenty of foods filled with antioxidants, such as strawberries." "ACTION_LINK: Where to buy strawberries", "TEXT: Antioxidants help protect cells from damage."], ["ACTION: Live an active lifestyle.", "ACTION_LINK: Easy exercises at home", "TEXT: Living a healthy, active lifestyle will boost mood and strengthen your body."]].`,
+                "role": "model",
+                "parts": {
+                    "text": `I will answer in an array of objects format. If it is some sort of explanation, the key will be "text". If I recommend an action you should take, the key will be "action". I will always include an "action_link" key for every "action". The "action_link" will be something that I will search up online to take that action. For example, if I am encouraging you to eat a certain food like broccoli, I will give an ACTION_LINK to search up: "where to buy broccoli". Example:
+                        [
+                            {
+                                "text": "Eat plenty of foods filled with antioxidants, like strawberries.",
+                                "action": "Eat some strawberries.",
+                                "action_link": "Where to buy strawberries"
+                            },
+                            {
+                                "text": "Exercising can improve overall health and outcomes.",
+                                "action": "Exercise at home.",
+                                "action_link": "Easy exercises at home"
+                            },
+                        ]`
                 },
             },
             {
@@ -163,62 +133,60 @@ export async function POST(
     });
 
     const geminiRes = await res.json();
-    // console.log(geminiRes)
 
     // console.log(geminiRes.candidates)
     let geminiTextArray = null;
-    let first = true;
-    // try {
-    geminiTextArray = geminiRes.candidates[0].content.parts;
-    const geminiText = geminiTextArray[0].text;
-    let geminiTextObject: string[][] = JSON.parse(geminiText);
+    try {
+        geminiTextArray = geminiRes.candidates[0].content.parts;
+        const geminiText = geminiTextArray[0].text;
+        let geminiTextObject: { text: string, action?: string, action_link?: string }[] = JSON.parse(geminiText);
 
-    // parse through the text and then figure out what to search up
-    // console.log(geminiTextObject);
-    for (const [actionIndex, action] of geminiTextObject.entries()) {
-        let actionGroup = action;
-        for (const [stepIndex, step] of actionGroup.entries()) {
-            // if it is an ACTION_LINK, do a search
-            if (step.includes("ACTION_LINK:")) {
+        // parse through the text and then figure out what to search up
+        // console.log(geminiTextObject);
+        for (const [actionIndex, step] of geminiTextObject.entries()) {
+            if (step.action && step.action_link) {
+                // if it is an ACTION_LINK, do a search
                 // parse out the query
-                // TODO: We would probably need to do some gemini output validation here
-                const query = step.split(": ")[1].toLocaleLowerCase();
-                // make the duck duck go query
-                // add + for query
-                const ddgQuery = query.split(" ").join("+");
-
-                // make the query and parse response
-                // https://stackoverflow.com/questions/37012469/duckduckgo-api-getting-search-results
-                const ddgURL = `https://html.duckduckgo.com/html/?q=${ddgQuery}`;
-                const ddgSearchRes = await fetch(ddgURL);
-                const ddgHTML = await ddgSearchRes.text();
-
-                // scrape the first URL
-                const root = parse(ddgHTML);
-                // grab the anchor tags with the results
-                const hits = root.querySelectorAll(".result__url");
-
-                // scrape the first hit
-                const hit = hits[0].innerHTML.trim();
+                const query = step.action_link;
+                const hit = await getFirstResultLink(query)
+                // scrape duck duck go
                 // replace it in the action link
-                actionGroup[stepIndex] = `ACTION_LINK: ${hit}`;
+                step.action_link = hit
             }
+            geminiTextObject[actionIndex] = step
         }
-        geminiTextObject[actionIndex] = actionGroup;
+        const nextRes = NextResponse.json({
+            data: geminiTextObject
+        }, { status: 201 });
+        return nextRes;
+    } catch (e) {
+        console.error(geminiRes.candidates)
+        console.error(e);
+        return NextResponse.json({
+            data: `[
+                        {
+                            "text": "I cannot answer this. Please consult a licensed doctor for more information.",
+                            "action": "Consult a licensed doctor for more information.",
+                            "action_link": "${await getFirstResultLink("doctors near me")}"
+                        },
+                    ]`
+        }, { status: 201 });
     }
+}
 
-    const nextRes = NextResponse.json(
-        {
-            data: geminiTextObject,
-        },
-        { status: 201 },
-    );
-    return nextRes;
-    // } catch (e) {
-    //     // console.error(geminiRes.candidates)
-    //     // console.error(e);
-    //     return NextResponse.json({
-    //         error: e
-    //     }, { status: 201 });;
-    // }
+async function getFirstResultLink(query: string) {
+    const ddgQuery = query.split(" ").join("+");
+    // make the query and parse response
+    // https://stackoverflow.com/questions/37012469/duckduckgo-api-getting-search-results
+    const ddgURL = `https://html.duckduckgo.com/html/?q=${ddgQuery}`
+    const ddgSearchRes = await fetch(ddgURL);
+    const ddgHTML = await ddgSearchRes.text()
+
+    // scrape the first URL
+    const root = parse(ddgHTML);
+    // grab the anchor tags with the results
+    const hits = root.querySelectorAll(".result__url");
+
+    // scrape the first hit
+    return hits[0].innerHTML.trim();
 }
