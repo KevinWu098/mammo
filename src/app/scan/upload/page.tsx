@@ -1,5 +1,6 @@
 "use client";
 
+import fs from "fs";
 import React, {
   MouseEvent,
   MouseEventHandler,
@@ -15,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LocationTag } from "@/components/ui/tag";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 import {
   AlertTriangle,
   FileUp,
@@ -28,6 +30,7 @@ const Page = () => {
   const [file, setFile] = useState<File[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [segmentedImage, setSegmentedImage] = useState<string>();
+  const [coordinates, setCoordinates] = useState([]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFile(acceptedFiles);
@@ -42,58 +45,58 @@ const Page = () => {
   const handleUpload: MouseEventHandler<HTMLButtonElement> = (event: any) => {
     event.preventDefault();
     setSubmitted(true);
-    // post to the fastAPI backend where the mammogram model lives
-    if (!process.env.NEXT_PUBLIC_MAMMOGRAM_MODEL_ENDPOINT) {
-      console.error("Missing mammogram model endpoint");
-      return;
-    }
 
-    const MammogramModelEndpoint =
-      process.env.NEXT_PUBLIC_MAMMOGRAM_MODEL_ENDPOINT + "/detect";
-    // convert image to base64 to compress
     const fileUpload = file[0];
-    // create a reader to convert to base64 and hit the fastapi backend
     let reader = new FileReader();
-
     reader.onloadend = async (e) => {
       const base64String = (reader.result as string)
         .replace("data:", "")
         .replace(/^.+,/, "");
 
-      let formData = new FormData();
-      formData.append("image", base64String);
-
-      const res = await fetch(MammogramModelEndpoint, {
+      axios({
         method: "POST",
-        body: formData,
-      });
-
-      // get the response
-      const resJSON = await res.json();
-      const segImg = resJSON.image;
-      // decode it from base64
-      const decodedData = atob(segImg);
-
-      const arrayBuffer = new ArrayBuffer(decodedData.length);
-      const uint8Array = new Uint8Array(arrayBuffer);
-
-      for (let i = 0; i < decodedData.length; i++) {
-        uint8Array[i] = decodedData.charCodeAt(i);
-      }
-      const blob = new Blob([uint8Array], { type: "image/png" });
-
-      // create the object url to display
-      const objectURL = URL.createObjectURL(blob);
-      setSegmentedImage(objectURL);
+        url: "https://detect.roboflow.com/mammography-mass-detection/1",
+        params: {
+          api_key: "HSdTeiyFQoC21khAVkwp",
+        },
+        data: base64String,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+        .then(function (response) {
+          console.log(response.data);
+          setCoordinates(response.data.coordinates);
+          const url = URL.createObjectURL(fileUpload);
+          setSegmentedImage(url);
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
     };
+
+    // // get the response
+    // const resJSON = await res.json();
+    // const segImg = resJSON.image;
+    // // decode it from base64
+    // const decodedData = atob(segImg);
+
+    // const arrayBuffer = new ArrayBuffer(decodedData.length);
+    // const uint8Array = new Uint8Array(arrayBuffer);
+
+    // for (let i = 0; i < decodedData.length; i++) {
+    //   uint8Array[i] = decodedData.charCodeAt(i);
+    // }
+    // const blob = new Blob([uint8Array], { type: "image/png" });
+
+    // // create the object url to display
+    // const objectURL = URL.createObjectURL(blob);
+    // setSegmentedImage(objectURL);
 
     reader.readAsDataURL(fileUpload);
   };
 
   if (submitted || segmentedImage) {
-    // const segmentedImage =
-    //   "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg";
-
     return submitted && !segmentedImage ? (
       <Loading fileSize={30} />
     ) : (
