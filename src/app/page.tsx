@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 // import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Loader2, Square } from "lucide-react";
 
-export default async function Home() {
+export default function Home() {
   //   const { getUser } = getKindeServerSession();
   //   const user = await getUser();
 
@@ -39,30 +39,30 @@ export default async function Home() {
         </div>
         <div className="flex flex-row gap-4">
           <Link
-            href={"https://github.com/KevinWu098/kTemp"}
-            target="_blank"
-            referrerPolicy="no-referrer"
+            href={"/scan/upload"}
             className=" no-underline  text-jas-grey_dark text-lg font-semibold hover:text-jas-grey"
             style={{ textDecoration: "none" }}
           >
             Features
           </Link>
           <Link
-            href={"https://github.com/KevinWu098/kTemp"}
-            target="_blank"
-            referrerPolicy="no-referrer"
+            href={"/dashboard"}
             className="no-underline text-jas-grey_dark text-lg font-semibold hover:text-jas-grey"
           >
             About us
           </Link>
         </div>
         <div className="flex gap-4">
+          <Link href="/dashboard">
           <Button className="bg-jas-grey_dark rounded-xl font-bold text-lg  no-underline ">
             Log in
           </Button>
+          </Link>
+          <Link href="/dashboard">
           <Button className="bg-jas-blue rounded-xl no-underline font-bold text-lg">
             Sign up
           </Button>
+          </Link>
         </div>
       </div>
       {/* main page */}
@@ -95,12 +95,14 @@ export default async function Home() {
               cancer insights. completely free.
             </h1>
             <div className="flex-center flex-col g-18">
-              <Button
-                style={{ zIndex: "1000" }}
-                className="bg-jas-blue rounded-lg font-bold text-xl  p-6 no-underline "
-              >
+              <Link href={"/scan/upload"}>
+                <Button
+                  style={{ zIndex: "1000" }}
+                  className="bg-jas-blue rounded-lg font-bold text-xl  p-6 no-underline "
+                >
                 Scan your file now
-              </Button>
+                </Button>
+              </Link>
               <Button
                 style={{ zIndex: "1000" }}
                 className="text-jas-grey_dark bg-transparent bg-none rounded-xl font-bold text-xl  p-5 no-underline hover:bg-transparent text-jas-grey"
@@ -126,29 +128,32 @@ export default async function Home() {
               <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
                 live feedback
               </div>
-              <h3 className="font-extrabold text-3xl">Computer Vision screening</h3>
+              <h3 className="font-extrabold text-3xl">Computer Vision Screening</h3>
               <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>real-time, visual representation of problem areas.</p>
+              <Link href="/scan/upload">
               <Button
 style={{padding:'0'}}
                 className="text-jas-grey bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
               >
 Try CV now →         
-
 </Button>
+              </Link>
             </div>
             <div className="feature-item">
               <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
                 resources
               </div>
-              <h3 className="font-extrabold text-3xl">Computer Vision screening</h3>
-              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>real-time, visual representation of problem areas.</p>
+              <h3 className="font-extrabold text-3xl">Gnerative AI Recommendations</h3>
+              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>resources generated using cutting-edge AI to guide your healthcare.</p>
+              <Link href="/chat">
               <Button
 style={{padding:'0'}}
                 className="text-jas-grey bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
               >
-Try CV now →         
+Try AI now →         
 
 </Button>
+              </Link>
             </div>
             <div className="feature-item">
               <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
@@ -156,6 +161,7 @@ Try CV now →
               </div>
               <h3 className="font-extrabold text-3xl">Computer Vision screening</h3>
               <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>real-time, visual representation of problem areas.</p>
+              <Link href="/scan/upload">
               <Button
 style={{padding:'0'}}
                 className="text-jas-grey bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
@@ -163,6 +169,7 @@ style={{padding:'0'}}
 Try CV now →         
 
 </Button>
+              </Link>
             </div>
           </div>
         </div>
