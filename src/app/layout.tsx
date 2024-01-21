@@ -30,7 +30,7 @@ export default function RootLayout({
             <Providers>
                 <body className={cn(inter.className)}>
                     <main className="h-screen flex w-full">
-                        <div className=" flex w-1/6 bg-white flex-col py-64 px-4 gap-4">
+                        <div className=" flex w-1/6 bg-white flex-col py-32 px-4 gap-4">
                             <Link href="/dashboard">
                                 <PageSidebarSlot
                                     title="home"
