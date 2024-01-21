@@ -110,7 +110,7 @@ export async function POST(
         generation_config: {
             temperature: 0.2,
             topP: 0.8,
-            topK: 40,
+            topK: 20,
         },
     };
 
@@ -148,16 +148,16 @@ export async function POST(
             }
             geminiTextObject[actionIndex] = step
         }
-        // console.log(geminiTextObject)
+        console.log(geminiTextObject)
         const nextRes = NextResponse.json({
             data: geminiTextObject
         }, { status: 201 });
         return nextRes;
     } catch (e) {
-        console.error(geminiRes.candidates)
+        console.error(geminiRes)
         console.error(e);
         return NextResponse.json({
-            data: `[{"text": "I cannot answer this. Please consult a licensed doctor for more information.","action": "Consult a licensed doctor for more information.","action_link": "${await getFirstResultLink("doctors near me")}","action_tag":"medical"},]`
+            data: `[{"text": "I cannot answer this. Please consult a licensed doctor for more information.","action": "Consult a licensed doctor for more information.","action_link": "${await getFirstResultLink("doctors near me")}","action_tag":"medical"}]`
         }, { status: 201 });
     }
 }

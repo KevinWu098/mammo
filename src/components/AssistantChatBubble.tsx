@@ -21,10 +21,24 @@ function AssistantChatBubble({
   actions: Action[];
 }) {
   // parse the message into many smaller messages
-  // TODO: probably do some error catching if possible in case the Gemini output is malformed
-  const mJSON = JSON.parse(m.content);
+    // TODO: probably do some error catching if possible in case the Gemini output is malformed
+    console.log(m.content);
+    const mJSON = JSON.parse(m.content);
 
-  const mJSONBlocks = mJSON.data;
+    let mJSONBlocks = mJSON.data;
+    
+    // check if the thing is an object
+    if (typeof mJSONBlocks[0] !== "object") {
+        // fallback
+        mJSONBlocks = [
+            {
+                text: "I cannot answer this. Please consult a licensed doctor for more information.",
+                action: "Consult a licensed doctor for more information.",
+                action_link: "https://doctor.webmd.com",
+                action_tag: "medical"
+            }
+        ]
+    }
 
   // generate a separate bubble for each
 
