@@ -3,7 +3,10 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 
+import PageSidebarSlot from "@/components/PageSidebarSlot";
 import Providers from "@/components/Providers";
+import { cn } from "@/lib/utils";
+import { FileSearch2, Home, Scan, Zap } from "lucide-react";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -24,8 +27,29 @@ export default function RootLayout({
     return (
         <html lang="en">
             <Providers>
-                <body className={inter.className}>
-                    <main>{children}</main>
+                <body className={cn(inter.className)}>
+                    <main className="h-screen flex w-full">
+                        <div className=" flex w-1/6 bg-white flex-col py-64 items-center pl-4 gap-4">
+                            <PageSidebarSlot
+                                title="home"
+                                icon={<Home fill="white" strokeWidth={0} />}
+                                selected={true}
+                            ></PageSidebarSlot>
+                            <PageSidebarSlot
+                                title="scan"
+                                icon={
+                                    <FileSearch2 fill="white" strokeWidth={0} />
+                                }
+                                selected={false}
+                            ></PageSidebarSlot>
+                            <PageSidebarSlot
+                                title="act"
+                                icon={<Zap fill="white" strokeWidth={0} />}
+                                selected={false}
+                            ></PageSidebarSlot>
+                        </div>
+                        <div className="flex-1 p-8">{children}</div>
+                    </main>
                 </body>
             </Providers>
         </html>

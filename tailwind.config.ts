@@ -51,8 +51,12 @@ const config = {
                 jas: {
                     light: "#885EFF",
                     DEFAULT: "#3bb8ff",
+                    blue: "#0094FF",
                     black: "#7aefff",
                     grey: "#808080",
+                    grey_light: "#F0F2F6",
+                    grey_dark: "#A2A2A2",
+                    grey_medium: "#E5E5E5",
                 },
 
                 primary: {
