@@ -79,9 +79,8 @@ const Page = () => {
         >
           {file.length > 0 ? (
             <>
-              <div className="h-[230px] flex-center text-2xl">
-                <span className="font-bold mr-1">{file[0].name}</span> -{" "}
-                {file[0].size} bytes
+              <div className="h-[230px] flex-center text-2xl font-bold">
+                {file[0].name}
               </div>
             </>
           ) : (

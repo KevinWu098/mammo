@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export function SelfLoveTag() {
   return (
     <div
-      className="p-2 bg-[#FFDCE2] rounded-xl flex items-center"
+      className="p-2 bg-[#FFDCE2] rounded-xl flex items-center gap-x-1"
       style={{ color: "#FF3357", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faHeart} />
@@ -19,12 +19,11 @@ export function SelfLoveTag() {
     </div>
   );
 }
-// export default SelfLoveTag
 
 export function ExerciseTag() {
   return (
     <div
-      className="p-2 bg-[#E0E5FF] rounded-xl flex items-center"
+      className="p-2 bg-[#E0E5FF] rounded-xl flex items-center gap-x-1"
       style={{ color: "#466FFF", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faRunning} />
@@ -32,12 +31,11 @@ export function ExerciseTag() {
     </div>
   );
 }
-// export ExerciseTag
 
 export function MedicalTag() {
   return (
     <div
-      className="p-2 bg-[#CEEAFF] rounded-xl flex items-center"
+      className="p-2 bg-[#CEEAFF] rounded-xl flex items-center gap-x-1"
       style={{ color: "#1C9AE1", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faSuitcaseMedical} />
@@ -48,7 +46,7 @@ export function MedicalTag() {
 export function PurchaseTag() {
   return (
     <div
-      className="p-2 bg-[#FFE9D9] rounded-xl flex items-center"
+      className="p-2 bg-[#FFE9D9] rounded-xl flex items-center gap-x-1"
       style={{ color: "#FF7C1D", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faCartShopping} />
@@ -59,7 +57,7 @@ export function PurchaseTag() {
 export function DietTag() {
   return (
     <div
-      className="p-2 bg-[#E2FDE3] rounded-xl flex items-center"
+      className="p-2 bg-[#E2FDE3] rounded-xl flex items-center gap-x-1"
       style={{ color: "#14B91B", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faAppleWhole} />
