@@ -12,6 +12,7 @@ import { useDropzone } from "react-dropzone";
 
 const Page = () => {
   const [file, setFile] = useState<File[]>([]);
+  const [segmentedImage, setSegmentedImage] = useState<string>();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFile(acceptedFiles);
@@ -51,7 +52,23 @@ const Page = () => {
         body: formData
       });
 
-      console.log(await res.json())
+      // get the response
+      const resJSON = await res.json();
+      const segImg = resJSON.image;
+      // decode it from base64 
+      const decodedData = atob(segImg);
+
+      const arrayBuffer = new ArrayBuffer(decodedData.length);
+      const uint8Array = new Uint8Array(arrayBuffer);
+
+      for (let i = 0; i < decodedData.length; i++) {
+        uint8Array[i] = decodedData.charCodeAt(i);
+      }
+      const blob = new Blob([uint8Array], { type: "image/png" });
+
+      // create the object url to display
+      const objectURL = URL.createObjectURL(blob);
+      setSegmentedImage(objectURL)
     };
 
     reader.readAsDataURL(fileUpload);
@@ -115,6 +132,11 @@ const Page = () => {
           Submit
         </Button>
       )}
+
+      {/* {
+        segmentedImage ? <Image src={segmentedImage} alt="test" fill={true} /> : null
+      } */}
+
     </div>
   );
 };
