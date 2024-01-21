@@ -1,95 +1,61 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { GoogleGenerativeAIStream, Message, StreamingTextResponse } from 'ai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAIStream, Message, StreamingTextResponse } from "ai";
+import { parse } from "node-html-parser";
 
-import { parse } from "node-html-parser"
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 // IMPORTANT! Set the runtime to edge
-export const runtime = 'edge';
+export const runtime = "edge";
 
 // convert messages from the Vercel AI SDK Format to the format
 // that is expected by the Google GenAI SDK
 const buildGoogleGenAIPrompt = (messages: Message[]) => ({
     contents: messages
-        .filter(message => message.role === 'user' || message.role === 'assistant')
-        .map(message => ({
-            role: message.role === 'user' ? 'user' : 'model',
+        .filter(
+            (message) =>
+                message.role === "user" || message.role === "assistant",
+        )
+        .map((message) => ({
+            role: message.role === "user" ? "user" : "model",
             parts: [{ text: message.content }],
         })),
 });
 
-
 /**
  * Makes a request to Google Gemini for personalized recommendations
- * @param request 
- * @param param1 
+ * @param request
+ * @param param1
  */
-export async function POST(request: NextRequest, { params }: any): Promise<any> {
-
+export async function POST(
+    request: NextRequest,
+    { params }: any,
+): Promise<any> {
     const reqJSON = await request.json();
     const question = reqJSON.data;
 
-    // const GeminiContent: Message[] = [
-    //     // give context to Gemini: must be an even amount of stuff, starting with user, model, then user, etc
-    //     // https://github.com/songquanpeng/one-api/issues/836#issuecomment-1859646123
-    //     {
-    //         id: "prompt-engineering-1",
-    //         role: "user",
-    //         content: "Who are you?"
-    //     }, {
-    //         id: "prompt-engineering-2",
-    //         role: "assistant",
-    //         content: "I am roleplaying as a breast cancer doctor/advisor. I do not give medical diagnoses. If asked for a medical diagnosis, I will tell you to consult a licensed doctor. I focus on recommending lifestyle changes and actions to people who are suffering from breast cancer to make their lives better."
-    //     }, {
-    //         id: "prompt-engineering-3",
-    //         role: "user",
-    //         content: "What format will you respond to me in?"
-    //     }, {
-    //         id: "prompt-engineering-4",
-    //         role: "assistant",
-    //         content: `I will answer in a array format. If I answer a question, say some text, or simply respond, I prefix it with "TEXT:". If I recommend some sort of action you should take, I will prefix each action with "ACTION:". If I link something, I will prefix it with "ACTION_LINK:". I will include an ACTION_LINK for every ACTION. The ACTION_LINK will be something that I will search up online. For example, if I am encouraging you to eat a certain food like broccoli, I will give an ACTION_LINK to search up, "where to buy broccoli". For example, if I am recommending exercise, I will suggest: ". For each step/response "group" with related ACTION, ACTION_LINK, and TEXT, I will present it as a nested array of strings. Here is an example output: [["ACTION: Eat plenty of foods filled with antioxidants, such as strawberries." "ACTION_LINK: Where to buy strawberries", "TEXT: Antioxidants help protect cells from damage."], ["ACTION: Live an active lifestyle.", "ACTION_LINK: Easy exercises at home", "TEXT: Living a healthy, active lifestyle will boost mood and strengthen your body."]].`
-    //     }, {
-    //         id: "user-question-1",
-    //         role: "user",
-    //         content: question
-    //     }
-    // ]
-
-    // const geminiStream = await genAI
-    //     .getGenerativeModel({ model: 'gemini-pro' })
-    //     .generateContentStream(buildGoogleGenAIPrompt(GeminiContent));
-
-
-    // // Convert the response into a friendly text-stream
-    // const stream = GoogleGenerativeAIStream(geminiStream);
-
-    // const aiStream = new StreamingTextResponse(stream);
-
-    // console.log(aiStream);
-
-    // const jsonStream = await aiStream.json();
-
-    // // Respond with the stream
-    // return jsonStream;
-
     // generate an API key: https://makersuite.google.com/app/prompts/new_chat
     if (!process.env.GEMINI_API_KEY) {
-        return NextResponse.json({
-            error: "Missing API Key in server. Please contact the site administrator."
-        }, { status: 500 });
+        return NextResponse.json(
+            {
+                error: "Missing API Key in server. Please contact the site administrator.",
+            },
+            { status: 500 },
+        );
     }
 
-    const API_KEY = process.env.GEMINI_API_KEY
+    const API_KEY = process.env.GEMINI_API_KEY;
 
     const GeminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
 
     // parse request body, which will be the question
     if (!request.body) {
-        return NextResponse.json({
-            error: "Missing body"
-        }, { status: 400 });
+        return NextResponse.json(
+            {
+                error: "Missing body",
+            },
+            { status: 400 },
+        );
     }
 
     // const reqJSON = await request.json();
@@ -97,13 +63,13 @@ export async function POST(request: NextRequest, { params }: any): Promise<any> 
 
     // build the request object to send
     const RequestBody = {
-        "contents": [
+        contents: [
             // give context to Gemini: must be an even amount of stuff, starting with user, model, then user, etc
             // https://github.com/songquanpeng/one-api/issues/836#issuecomment-1859646123
             {
-                "role": "user",
-                "parts": {
-                    "text": "Who are you?"
+                role: "user",
+                parts: {
+                    text: "Who are you?",
                 },
             },
             {
@@ -119,9 +85,9 @@ export async function POST(request: NextRequest, { params }: any): Promise<any> 
             //     },
             // },
             {
-                "role": "user",
-                "parts": {
-                    "text": "What format will you respond to me in?"
+                role: "user",
+                parts: {
+                    text: "What format will you respond to me in?",
                 },
             },
             {
@@ -143,31 +109,30 @@ export async function POST(request: NextRequest, { params }: any): Promise<any> 
                 },
             },
             {
-                "role": "user",
-                "parts": {
-                    "text": question
+                role: "user",
+                parts: {
+                    text: question,
                 },
             },
         ],
-        "safety_settings": {
-            "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-            "threshold": "BLOCK_LOW_AND_ABOVE"
+        safety_settings: {
+            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+            threshold: "BLOCK_LOW_AND_ABOVE",
         },
-        "generation_config": {
-            "temperature": 0.2,
-            "topP": 0.8,
-            "topK": 40
-        }
-    }
+        generation_config: {
+            temperature: 0.2,
+            topP: 0.8,
+            topK: 40,
+        },
+    };
 
     // send request and get response
     const res = await fetch(GeminiEndpoint, {
         method: "POST",
-        body: JSON.stringify(RequestBody)
+        body: JSON.stringify(RequestBody),
     });
 
     const geminiRes = await res.json();
-    // console.log(geminiRes)
 
     // console.log(geminiRes.candidates)
     let geminiTextArray = null;
@@ -195,7 +160,7 @@ export async function POST(request: NextRequest, { params }: any): Promise<any> 
         }, { status: 201 });
         return nextRes;
     } catch (e) {
-        // console.error(geminiRes.candidates)
+        console.error(geminiRes.candidates)
         console.error(e);
         return NextResponse.json({
             data: `[

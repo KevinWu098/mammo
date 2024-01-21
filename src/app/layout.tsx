@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 
+import Link from "next/link";
 import PageSidebarSlot from "@/components/PageSidebarSlot";
 import Providers from "@/components/Providers";
 import { cn } from "@/lib/utils";
@@ -29,26 +30,38 @@ export default function RootLayout({
             <Providers>
                 <body className={cn(inter.className)}>
                     <main className="h-screen flex w-full">
-                        <div className=" flex w-1/6 bg-white flex-col py-64 items-center pl-4 gap-4">
-                            <PageSidebarSlot
-                                title="home"
-                                icon={<Home fill="white" strokeWidth={0} />}
-                                selected={true}
-                            ></PageSidebarSlot>
-                            <PageSidebarSlot
-                                title="scan"
-                                icon={
-                                    <FileSearch2 fill="white" strokeWidth={0} />
-                                }
-                                selected={false}
-                            ></PageSidebarSlot>
-                            <PageSidebarSlot
-                                title="act"
-                                icon={<Zap fill="white" strokeWidth={0} />}
-                                selected={false}
-                            ></PageSidebarSlot>
+                        <div className=" flex w-1/6 bg-white flex-col py-32 px-4 gap-4">
+                            <Link href="/dashboard">
+                                <PageSidebarSlot
+                                    title="home"
+                                    value="dashboard"
+                                    icon={<Home fill="white" strokeWidth={0} />}
+                                    selected={true}
+                                />
+                            </Link>
+                            <Link href="/scan/upload">
+                                <PageSidebarSlot
+                                    title="scan"
+                                    value="scan"
+                                    icon={
+                                        <FileSearch2
+                                            fill="white"
+                                            strokeWidth={0}
+                                        />
+                                    }
+                                    selected={false}
+                                />
+                            </Link>
+                            <Link href="/chat">
+                                <PageSidebarSlot
+                                    title="chat"
+                                    value="chat"
+                                    icon={<Zap fill="white" strokeWidth={0} />}
+                                    selected={false}
+                                />
+                            </Link>
                         </div>
-                        <div className="flex-1 p-8">{children}</div>
+                        <div className="flex-1 py-8 pr-8">{children}</div>
                     </main>
                 </body>
             </Providers>
