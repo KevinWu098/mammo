@@ -55,7 +55,7 @@ const Screenings = (props: Screenings) => {
                 <div className="bg-jas-grey_dark p-2 rounded-lg">
                     <ListFilter />
                 </div>
-                {Filter_Options.map((filter, index) => (
+                {Filter_Options.map((filter) => (
                     <Button
                         className={cn(
                             "rounded-lg font-semibold",
@@ -63,6 +63,7 @@ const Screenings = (props: Screenings) => {
                                 "bg-jas-blue hover:bg-jas-blue/80",
                         )}
                         onClick={() => setSort(filter.value)}
+                        key={filter.label}
                     >
                         {filter.label}
                     </Button>
