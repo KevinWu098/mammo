@@ -95,7 +95,7 @@ export default function Chat() {
         <h1 className="text-5xl font-bold mb-3 pt-4">Ask something</h1>
 
         <ScrollArea
-          className="flex flex-col space-y-4 h-[600px] rounded-md min-w-fit pr-8"
+          className="flex flex-col space-y-4 h-[600px] rounded-md max-w-fit pr-8"
           id="messageContainer"
         >
           <div
@@ -117,7 +117,7 @@ export default function Chat() {
                         </Avatar>
                         <span className="font-bold text-xl">you</span>
                       </div>
-                      <div className="text-black text-opacity-50 font-semibold flex-nowrap break-words max-w-[500px]">
+                      <div className="text-black text-opacity-50 font-semibold flex-nowrap break-words max-w-[400px]">
                         <span className="min-w-0">{m.content}</span>
                       </div>
                     </div>
@@ -157,7 +157,7 @@ export default function Chat() {
                         <div className="flex items-center gap-x-2 flex-row">
                           <span className="font-bold text-xl">your AI doc</span>
                         </div>
-                        <div className="text-black text-opacity-50 font-semibold flex-nowrap break-words max-w-[500px]">
+                        <div className="text-black text-opacity-50 font-semibold flex-nowrap break-words max-w-[400px]">
                           <span className="min-w-0">{m.content}</span>
                         </div>
                       </div>
