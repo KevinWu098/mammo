@@ -1,10 +1,17 @@
+import { ReactElement } from "react";
 import ProfileForm from "@/components/ProfileForm";
 import Screenings from "@/components/Screenings";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CalendarClock, Upload } from "lucide-react";
+import {
+    CalendarClock,
+    MoveVertical,
+    PersonStanding,
+    Scale,
+    Upload,
+} from "lucide-react";
 
 export type Screening = {
     severity: number;
@@ -14,7 +21,7 @@ export type Screening = {
 const SCREENINGS: Screening[] = [
     {
         severity: 88,
-        date: "01/06/2005",
+        date: "05/06/2005",
         id: 1,
     },
     {
@@ -23,19 +30,47 @@ const SCREENINGS: Screening[] = [
         id: 2,
     },
     {
-        severity: 2,
+        severity: 42,
         date: "02/06/2004",
         id: 3,
     },
     {
-        severity: 3,
+        severity: 23,
         date: "07/15/2012",
         id: 4,
     },
     {
-        severity: 0,
+        severity: 64,
         date: "03/06/2005",
         id: 5,
+    },
+];
+
+export type Card = {
+    icon: ReactElement<any, any>;
+    label: string;
+    value: string;
+};
+const USER_CARDS: Card[] = [
+    {
+        icon: <CalendarClock />,
+        label: "age",
+        value: "23",
+    },
+    {
+        icon: <MoveVertical />,
+        label: "height",
+        value: "5'6\"",
+    },
+    {
+        icon: <Scale />,
+        label: "weight",
+        value: "125",
+    },
+    {
+        icon: <PersonStanding />,
+        label: "gender",
+        value: "F",
     },
 ];
 
@@ -46,7 +81,7 @@ const Page = () => {
                 <div className="flex-between w-full mb-16">
                     <h1 className="text-5xl font-bold">Your screenings</h1>
 
-                    <Button className="p-5 flex flex-row gap-x-2 bg-jas-blue hover:bg-jas-blue/80">
+                    <Button className="p-5 py-6 flex flex-row gap-x-2 bg-jas-blue hover:bg-jas-blue/80 rounded-xl">
                         <Upload className="size-5" /> Share with doctor
                     </Button>
                 </div>
@@ -67,36 +102,19 @@ const Page = () => {
                     <CardTitle className="text-4xl">Jane D.</CardTitle>
                 </CardHeader>
 
-                {/* <CardContent className="w-[400px] mx-auto">
-                    <ProfileForm />
-                </CardContent> */}
-
                 <CardContent className="mx-[3.85rem]">
                     <div className="grid grid-cols-2 gap-2">
-                        <div className="bg-jas-grey_light size-40 text-5xl font-bold rounded-2xl flex-center flex-col gap-y-1 m-auto">
-                            <Badge className="w-fit space-x-1 bg-jas-blue border-3 px-3 py-1 bg-opacity-25 text-jas-blue border-jas-blue border-opacity-50 hover:bg-jas-blue/25 border-[3px]">
-                                <CalendarClock /> <span>age</span>
-                            </Badge>
-                            <span>23</span>
-                        </div>
-                        <div className="bg-jas-grey_light size-40 text-5xl font-bold rounded-2xl flex-center flex-col gap-y-1 m-auto">
-                            <Badge className="w-fit space-x-1 bg-jas-blue border-3 px-3 py-1 bg-opacity-25 text-jas-blue border-jas-blue border-opacity-50 hover:bg-jas-blue/25 border-[3px]">
-                                <CalendarClock /> <span>age</span>
-                            </Badge>
-                            <span>23</span>
-                        </div>
-                        <div className="bg-jas-grey_light size-40 text-5xl font-bold rounded-2xl flex-center flex-col gap-y-1 m-auto">
-                            <Badge className="w-fit space-x-1 bg-jas-blue border-3 px-3 py-1 bg-opacity-25 text-jas-blue border-jas-blue border-opacity-50 hover:bg-jas-blue/25 border-[3px]">
-                                <CalendarClock /> <span>age</span>
-                            </Badge>
-                            <span>23</span>
-                        </div>
-                        <div className="bg-jas-grey_light size-40 text-5xl font-bold rounded-2xl flex-center flex-col gap-y-1 m-auto">
-                            <Badge className="w-fit space-x-1 bg-jas-blue border-3 px-3 py-1 bg-opacity-25 text-jas-blue border-jas-blue border-opacity-50 hover:bg-jas-blue/25 border-[3px]">
-                                <CalendarClock /> <span>age</span>
-                            </Badge>
-                            <span>23</span>
-                        </div>
+                        {USER_CARDS.map((card) => (
+                            <div
+                                className="bg-jas-grey_light size-40 text-5xl font-bold rounded-2xl flex-center flex-col gap-y-2 m-auto"
+                                key={card.label}
+                            >
+                                <Badge className="w-fit space-x-1 bg-jas-blue border-3 px-3 py-1 bg-opacity-25 text-jas-blue border-jas-blue border-opacity-50 hover:bg-jas-blue/25 border-[3px]">
+                                    {card.icon} <span>{card.label}</span>
+                                </Badge>
+                                <span>{card.value}</span>
+                            </div>
+                        ))}
                     </div>
                 </CardContent>
             </div>

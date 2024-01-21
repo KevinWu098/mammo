@@ -52,15 +52,15 @@ const Screenings = (props: Screenings) => {
     return (
         <>
             <div className="space-x-4 mb-2 flex items-center flex-row ">
-                <div className="bg-jas-grey_dark p-2 rounded-lg">
+                <div className="bg-jas-grey_dark p-2 rounded-xl text-white">
                     <ListFilter />
                 </div>
                 {Filter_Options.map((filter) => (
                     <Button
                         className={cn(
-                            "rounded-lg font-semibold",
+                            "rounded-xl font-semibold bg-[#D9D9D9] hover:bg-[#D9D9D9]/80 text-black text-opacity-60",
                             sort == filter.value &&
-                                "bg-jas-blue hover:bg-jas-blue/80",
+                                "bg-jas-blue hover:bg-jas-blue/80 text-white text-opacity-100",
                         )}
                         onClick={() => setSort(filter.value)}
                         key={filter.label}
@@ -78,7 +78,16 @@ const Screenings = (props: Screenings) => {
                         key={screening.id}
                     >
                         <CardHeader className="flex flex-row flex-center gap-x-4">
-                            <div className="text-3xl font-bold bg-jas-grey_light size-20 flex-center rounded-2xl">
+                            <div
+                                className={cn(
+                                    "text-3xl font-bold bg-jas-grey_light size-20 flex-center rounded-2xl",
+                                    screening.severity >= 80
+                                        ? "text-[#E04343] bg-[#FFDDDD]"
+                                        : screening.severity >= 60
+                                          ? "text-[#FF7C1D] bg-[#FDEFE2]"
+                                          : "text-[#14B91B] bg-[#E2FDE3]",
+                                )}
+                            >
                                 {screening.severity.toString().padStart(2, "0")}
                             </div>
 
