@@ -181,7 +181,7 @@ Try CV now →
         </div>
         {/* ai thing */}
         <div className="ai-contain">
-        <div className="tag font-semibold bg-jas-[#C8C8C8] p-2 rounded-2xl flex items-center w-fit" style={{color: '#3A3D46'}}>
+        <div className="tag font-semibold bg-[#3A3D46] p-2 rounded-2xl flex items-center w-fit" style={{color: '#C8C8C8'}}>
             Generative AI
           </div>
           <h1
@@ -201,12 +201,40 @@ AI helps you <span>take action.</span>
             
           />
         </div>
+        {/* cta */}
+        <div className="cta-contain">
+        <Image
+            src={"/backgroundMem.svg"}
+            alt="mammoth logo"
+            width={100}
+            height={100}
+            className="w-full "
+            style={{ position: "absolute", zIndex: "-1", maxWidth:"100vw" }}
+          />
+        <div className="tag font-semibold bg-jas-grey_light p-2 rounded-2xl flex items-center w-fit">
+            Join now
+          </div>
+          <h1
+            className=" text-5xl font-extrabold text-center z-[1000]"
+            style={{ zIndex: 1000, maxWidth:'700px' }}
+          >
+            Improve your health now in a <span>single click.</span>
+          </h1>
+          <Link href={"/scan/upload"}>
+                <Button
+                  style={{ zIndex: "1000", padding:'30px', borderRadius: '22px'}}
+                  className="bg-jas-blue font-bold text-xl no-underline "
+                >
+                Scan your file now
+                </Button>
+              </Link>
+        </div>
         {/* footer */}
       
       <div className="flex center items-center align-center justify-center h-15vh relative bg-[#fff]">
-      <div className="hr">
+      <div className="hr border border-gray-300">
         <hr /> </div>
-        <p className="font-semibold">made with ♥︎ & lots of ☕️ @ UCR</p>
+        <p className="font-semibold flex flex-center justify-center items-center text-center p-5" style={{width: "100vw", borderTop:"4px solid #D8DBE3"}} >made with ♥︎ & lots of ☕️ @ UCR</p>
         </div>
         
       </motion.div>

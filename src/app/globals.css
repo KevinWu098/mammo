@@ -86,11 +86,21 @@
         justify-content: center;
         align-items: center;
     }
+    .cta-contain {
+        display: grid;
+        place-content: center;
+    gap: 22px;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
     .ai-contain {
         background-color: #282B34;
         height: fit-content;
-        padding: 36px 0px;
+        padding: 48px 0px;
         width: 100vw;
+        gap: 36px;
         display: grid;
         place-content: center;
         justify-items: center;
@@ -110,7 +120,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 22px;
-        margin-top: 40px;
+        margin: 40px 0px;
     }
     .feature-item {
         border-radius: 40px;
