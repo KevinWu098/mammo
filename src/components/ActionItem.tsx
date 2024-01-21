@@ -6,7 +6,7 @@ import { Action } from "@/app/chat/page";
 import ActionCard from "./ActionCard";
 import Check from "./ui/check";
 import { ScrollArea } from "./ui/scroll-area";
-import { SelfLoveTag } from "./ui/tag";
+import { DietTag, ExerciseTag, MedicalTag, PurchaseTag, SelfLoveTag } from "./ui/tag";
 
 interface ActionItemInterface {
   action: Action;
@@ -30,15 +30,35 @@ const ActionItem = (props: ActionItemInterface) => {
 
         {!checked && (
           <>
-            {props.action.items.map((item) => (
-              <ActionCard
+            {props.action.items.map((item) => {
+              let tagComponent;
+              switch (item.tag) {
+                case "self-care":
+                  tagComponent = <SelfLoveTag />
+                  break;
+                case "purchase":
+                  tagComponent = <PurchaseTag />
+                  break;
+                case "diet":
+                  tagComponent = <DietTag />
+                  break;
+                case "medical":
+                  tagComponent = <MedicalTag />
+                  break;
+                case "exercise":
+                  tagComponent = <ExerciseTag />
+                  break;
+                default:
+                  tagComponent = <MedicalTag />
+              }
+              return (<ActionCard
                 props={{
                   title: item.title,
-                  Tag: item.tag == "self-care" && <SelfLoveTag />,
+                  Tag: tagComponent,
                   link: item.link,
                 }}
-              />
-            ))}
+              />)
+            })}
           </>
         )}
       </div>

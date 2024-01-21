@@ -39,7 +39,7 @@ export function MedicalTag() {
       style={{ color: "#1C9AE1", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faSuitcaseMedical} />
-      <h4 className="font-semibold text-md">exercise</h4>
+      <h4 className="font-semibold text-md">medical</h4>
     </div>
   );
 }
@@ -50,7 +50,7 @@ export function PurchaseTag() {
       style={{ color: "#FF7C1D", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faCartShopping} />
-      <h4 className="font-semibold text-md">exercise</h4>
+      <h4 className="font-semibold text-md">purchase</h4>
     </div>
   );
 }
@@ -61,7 +61,7 @@ export function DietTag() {
       style={{ color: "#14B91B", width: "fit-content" }}
     >
       <FontAwesomeIcon icon={faAppleWhole} />
-      <h4 className="font-semibold text-md">exercise</h4>
+      <h4 className="font-semibold text-md">diet</h4>
     </div>
   );
 }
