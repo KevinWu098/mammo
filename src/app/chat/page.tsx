@@ -8,7 +8,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useChat } from "ai/react";
 import { ArrowUp, MoveDiagonal, Plus, Sparkles } from "lucide-react";
-
+import ActionCard from "@/components/ActionCard";
+import {SelfLoveTag, ExerciseTag} from "@/components/ui/tag";
+import Check from "@/components/ui/check";
 const messages = [
   { id: 1, role: "user", content: "What should I eat?" },
   {
@@ -48,9 +50,25 @@ export default function Chat() {
 
   return (
     <div className="h-full flex justify-between gap-x-8">
-      <ScrollArea className="flex flex-1 bg-jas-grey_light px-6 py-4 rounded-3xl">
-        <h1 className="text-5xl font-extrabold">Actions</h1>
-      </ScrollArea>
+  <ScrollArea
+    className="flex flex-1 bg-jas-grey_light px-6 py-4 rounded-3xl gap-8"
+   
+  >
+    <div  style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <h1 className="text-5xl font-extrabold">Actions</h1>
+    <Check
+    props={{
+        title:"eat more healthy"
+    }}
+    />
+    <ActionCard
+      props={{
+        title: "Eat more healthy food",
+        Tag: <SelfLoveTag />
+      }}
+    />
+    </div>
+  </ScrollArea>
 
       <div className="h-full flex-col w-[500px] relative">
         <h1 className="text-5xl font-bold mb-8">Ask something</h1>
