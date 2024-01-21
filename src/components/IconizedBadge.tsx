@@ -8,7 +8,7 @@ interface IconizedBadgeProps {
 }
 function IconizedBadge(props: IconizedBadgeProps) {
     return (
-        <Badge className="text-lg px-6 py-2 bg-jas-grey-medium text-jas-grey outline outline-4 rounded-xl outline-jas-grey gap-2 hover:bg-jas-grey-light cursor-pointer">
+        <Badge className="text-lg px-6 py-2 bg-jas-grey_medium text-jas-grey outline outline-4 rounded-xl outline-jas-grey gap-2 hover:bg-jas-grey_light cursor-pointer">
             {props.icon}
             <h1>{props.title}</h1>
         </Badge>

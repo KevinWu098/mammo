@@ -30,7 +30,7 @@ export default function RootLayout({
             <Providers>
                 <body className={cn(inter.className)}>
                     <main className="h-screen flex w-full">
-                        <div className=" flex w-1/6 bg-white flex-col py-64 pl-4 gap-4">
+                        <div className=" flex w-1/6 bg-white flex-col py-64 px-4 gap-4">
                             <Link href="/dashboard">
                                 <PageSidebarSlot
                                     title="home"
@@ -39,7 +39,7 @@ export default function RootLayout({
                                     selected={true}
                                 />
                             </Link>
-                            <Link href="/scan">
+                            <Link href="/scan/upload">
                                 <PageSidebarSlot
                                     title="scan"
                                     value="scan"
@@ -61,7 +61,7 @@ export default function RootLayout({
                                 />
                             </Link>
                         </div>
-                        <div className="flex-1 p-8 pl-0">{children}</div>
+                        <div className="flex-1 py-8 pr-8">{children}</div>
                     </main>
                 </body>
             </Providers>

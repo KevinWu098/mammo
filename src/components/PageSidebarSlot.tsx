@@ -14,10 +14,10 @@ function PageSidebarSlot(props: PageSidebarSlotProps) {
     const pathname = usePathname();
 
     return (
-        <div className="w-full pr-16">
+        <div className="w-full">
             <div
                 className={cn(
-                    "bg-jas-grey-light rounded-2xl py-2 px-4 w-full flex gap-y-2 gap-x-4 items-center",
+                    "bg-jas-grey_light rounded-2xl py-2 px-4 w-full flex gap-x-4 items-center",
                     pathname.includes(props.value)
                         ? "bg-jas-grey_light"
                         : "grayscale",
