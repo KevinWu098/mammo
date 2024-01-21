@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,12 +39,23 @@ export default function Chat() {
     api: "api/gemini/",
   });
 
-  const handleUserSubmit = (e: FormEvent<HTMLFormElement>) => {
-    handleSubmit(e);
-    e.preventDefault();
-    const messageContainer = document.getElementById("messageContainer");
-    messageContainer!.scrollTop = messageContainer!.scrollHeight;
-  };
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let intervalId: any;
+
+    const scrollIntoViewInterval = () => {
+      if (ref.current) {
+        ref.current.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }
+    };
+
+    scrollIntoViewInterval();
+
+    return () => scrollIntoViewInterval();
+  }, [messages]);
 
   return (
     <div className="h-full flex justify-between gap-x-8">
@@ -59,9 +70,12 @@ export default function Chat() {
           className="flex flex-col space-y-4 h-[600px] rounded-md min-w-fit pr-8"
           id="messageContainer"
         >
-          <div className="space-y-4 justify-end items-end flex flex-col">
+          <div
+            className="space-y-4 justify-end items-end flex flex-col"
+            ref={ref}
+          >
             {messages.map((m, index) => (
-              <div key={m.id} id={`messageContainer${m.id}`}>
+              <div key={m.id}>
                 {m.role === "user" ? (
                   <div className="bg-jas-grey_light rounded-xl p-4 flex flex-col gap-y-2">
                     <div className="flex items-center gap-x-2 flex-row">
@@ -134,7 +148,7 @@ export default function Chat() {
         </ScrollArea>
 
         <form
-          onSubmit={handleUserSubmit}
+          onSubmit={handleSubmit}
           className="absolute bottom-0 w-full flex flex-row gap-x-2"
         >
           <Input
