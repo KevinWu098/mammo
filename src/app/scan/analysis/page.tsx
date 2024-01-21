@@ -1,12 +1,14 @@
+
 import React from "react";
 import ActionCard from "@/components/ActionCard";
 import IconizedBadge from "@/components/IconizedBadge";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertTriangle, MapPin, ScrollText } from "lucide-react";
+import Loading from "../load/loading";
 
 const Page = () => {
-    return (
+    return (<Loading fileSize={30}/> ||
         <div className="flex  gap-8 p-8 items-center h-full justify-center relative bg-jas-grey_light  rounded-[2rem]">
             <div className="flex flex-1 flex-col items-center gap-4 relative w-full h-full">
                 <h1 className="text-4xl font-extrabold w-full">Your Scan</h1>
@@ -55,7 +57,7 @@ const Page = () => {
                 </div>
             </div>
         </div>
-    );
+)
 };
 
 export default Page;
