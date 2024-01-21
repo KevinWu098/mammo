@@ -163,7 +163,7 @@ export default function Chat() {
                           Ask a follow-up question
                         </span>
                       </div>
-                      <div className="flex flex-row gap-x-4">
+                      {/* <div className="flex flex-row gap-x-4">
                         <Button className="mx-auto mt-4 flex flex-row gap-x-2 rounded-xl bg-jas-grey_light text-back hover:bg-jas-grey_light/80">
                           <MoveDiagonal />
                           <span>elaborate</span>
@@ -172,7 +172,7 @@ export default function Chat() {
                           <Sparkles />
                           <span>recommend</span>
                         </Button>
-                      </div>
+                      </div> */}
                     </div>
                   </>
                 )}
