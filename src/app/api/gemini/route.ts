@@ -136,8 +136,11 @@ export async function POST(
                 // if it is an ACTION_LINK, do a search
                 // parse out the query
                 const query = step.action_link;
-                const hit = await getFirstResultLink(query)
-                // scrape duck duck go
+                let hit = await getFirstResultLink(query);
+                // append https:// if it does not start with it
+                if (!hit.startsWith("https://") && !hit.startsWith("http://")) {
+                    hit = "https://" + hit;
+                }
                 // replace it in the action link
                 step.action_link = hit
             }

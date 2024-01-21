@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { SelfLoveTag } from "@/components/ui/tag";
 import { useChat } from "ai/react";
 import { ArrowUp, Loader2, MoveDiagonal, Plus, Sparkles } from "lucide-react";
+import AssistantChatBubble from "@/components/AssistantChatBubble";
 
 const messages = [
   { id: 1, role: "user", content: "What should I eat?" },
@@ -77,7 +78,7 @@ export default function Chat() {
     return () => scrollIntoViewInterval();
   }, [messages]);
 
-  const [actions, setActions] = useState<Action[]>(ACTIONS);
+  const [actions, setActions] = useState<Action[]>([]);
 
   return (
     <div className="h-full flex justify-between gap-x-8">
@@ -144,54 +145,7 @@ export default function Chat() {
                     )}
                   </div>
                 ) : (
-                  <>
-                    <div className="bg-[#D3D8DC] rounded-xl p-4 flex flex-row gap-x-2">
-                      <Avatar className="size-8">
-                        <AvatarImage
-                          src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3212952/robot-icon-md.png"
-                          alt="@agentic"
-                        />
-                        <AvatarFallback>A</AvatarFallback>
-                      </Avatar>
-                      <div className="flex gap-y-2 flex-col">
-                        <div className="flex items-center gap-x-2 flex-row">
-                          <span className="font-bold text-xl">your AI doc</span>
-                        </div>
-                        <div className="text-black text-opacity-50 font-semibold flex-nowrap break-words max-w-[400px]">
-                          <span className="min-w-0">{m.content}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {index == messages.length - 1 && m.role == "assistant" ? (
-                      <div className="flex-center flex-col gap-y-4">
-                        <Button className="mx-auto mt-4 flex flex-row gap-x-2 rounded-xl bg-jas-blue hover:bg-jas-blue/80">
-                          <Plus /> <span>add to actions</span>
-                        </Button>
-                        <div className="mx-auto">
-                          <span className="font-bold text-xl text-black text-opacity-50">
-                            or
-                          </span>
-                        </div>
-                        <Separator className="h-1 bg-black bg-opacity-10" />
-                        <div className="mx-auto">
-                          <span className="font-bold text-xl text-black text-opacity-50">
-                            Ask a follow-up question
-                          </span>
-                        </div>
-                        <div className="flex flex-row gap-x-4">
-                          <Button className="mx-auto mt-4 flex flex-row gap-x-2 rounded-xl bg-jas-grey_light text-back hover:bg-jas-grey_light/80">
-                            <MoveDiagonal />
-                            <span>elaborate</span>
-                          </Button>
-                          <Button className="mx-auto mt-4 flex flex-row gap-x-2 rounded-xl bg-jas-grey_light text-back hover:bg-jas-grey_light/80">
-                            <Sparkles />
-                            <span>reccomend</span>
-                          </Button>
-                        </div>
-                      </div>
-                    ) : null}
-                  </>
+                  <AssistantChatBubble index={index} messages={messages} m={m} actions={actions} setAction={setActions} />
                 )}
               </div>
             ))}
