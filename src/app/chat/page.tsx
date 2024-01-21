@@ -86,9 +86,13 @@ export default function Chat() {
         <div className="w-full h-fit flex gap-3 flex-col">
           <h1 className="text-5xl font-extrabold">Actions</h1>
 
-          {actions.map((action) => (
-            <ActionItem action={action} />
-          ))}
+          <ScrollArea className="w-full h-[720px]">
+            <div className="space-y-4">
+              {actions.map((action) => (
+                <ActionItem action={action} />
+              ))}
+            </div>
+          </ScrollArea>
         </div>
       </div>
 
