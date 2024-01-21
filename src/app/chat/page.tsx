@@ -92,7 +92,7 @@ export default function Chat() {
       </div>
 
       <div className="h-full flex-col w-[500px] relative">
-        <h1 className="text-5xl font-bold mb-8">Ask something</h1>
+        <h1 className="text-5xl font-bold mb-3 pt-4">Ask something</h1>
 
         <ScrollArea
           className="flex flex-col space-y-4 h-[600px] rounded-md min-w-fit pr-8"
