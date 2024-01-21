@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import ActionCard from "./ActionCard";
 import IconizedBadge from "./IconizedBadge";
 import { Card } from "./ui/card";
-import { LocationTag } from "./ui/tag";
+import { DietTag, LocationTag } from "./ui/tag";
 import { AlertTriangle, ScrollText } from "lucide-react";
 
 const Analysis = ({ image: segmentedImage, coordinates }) => {
@@ -93,12 +93,23 @@ const Analysis = ({ image: segmentedImage, coordinates }) => {
             professional.
           </h3>
         </Card>
+
         <h1 className="text-4xl font-extrabold w-full">Take Action</h1>
+
         <div className="flex flex-col gap-2 w-full">
           <ActionCard
             props={{
               title: "Visit a local doctor",
               Tag: <LocationTag />,
+              link: "https://google.com",
+            }}
+          />
+        </div>
+        <div className="flex flex-col gap-2 w-full">
+          <ActionCard
+            props={{
+              title: "Eat more fiber",
+              Tag: <DietTag />,
               link: "https://google.com",
             }}
           />
