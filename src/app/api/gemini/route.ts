@@ -122,13 +122,15 @@ export async function POST(
 
     const geminiRes = await res.json();
 
-    // console.log(geminiRes.candidates)
+    console.log(geminiRes)
     let geminiTextArray = null;
     try {
         geminiTextArray = geminiRes.candidates[0].content.parts;
         const geminiText = geminiTextArray[0].text;
-        let geminiTextObject: { text: string, action?: string, action_link?: string }[] = JSON.parse(geminiText);
-
+        let geminiTextObject: { text: string, action?: string, action_link?: string, action_tag?: string }[] = JSON.parse(geminiText);
+        // console.log(geminiTextObject)
+        // HARDCODE: Get only one result
+        geminiTextObject = [geminiTextObject[0]]
         // parse through the text and then figure out what to search up
         // console.log(geminiTextObject);
         for (const [actionIndex, step] of geminiTextObject.entries()) {
@@ -146,7 +148,7 @@ export async function POST(
             }
             geminiTextObject[actionIndex] = step
         }
-        // console.log(JSON.stringify(geminiTextObject))
+        // console.log(geminiTextObject)
         const nextRes = NextResponse.json({
             data: geminiTextObject
         }, { status: 201 });

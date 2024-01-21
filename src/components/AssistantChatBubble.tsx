@@ -64,12 +64,12 @@ function AssistantChatBubble({
             action_link?: string;
             action_tag?: string;
           },
-          index: number,
-          blocks: any[],
         ) => {
           const messageContent = message.text;
-          const messageAction = message.action;
-          const messageLink = message.action_link;
+              const messageAction = message.action;
+              const messageLink = message.action_link;
+              console.log(messageAction)
+              console.log(messageLink)
           const messageTag = message.action_tag;
           return (
             <React.Fragment key={messageContent}>
@@ -91,8 +91,8 @@ function AssistantChatBubble({
                 </div>
               </div>
 
-              {index == messages.length - 1 && m.role == "assistant" ? (
-                <div className="flex-center flex-col gap-y-2 mb-8 mt-2">
+              {m.role == "assistant" ? (
+              <div className="flex-center flex-col gap-y-2 mb-8 mt-2">
                   {messageAction && messageLink ? (
                     <>
                       <Button
