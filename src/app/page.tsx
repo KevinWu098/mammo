@@ -97,13 +97,13 @@ export default async function Home() {
             <div className="flex-center flex-col g-18">
               <Button
                 style={{ zIndex: "1000" }}
-                className="bg-jas-blue rounded-lg font-bold text-lg  p-6 no-underline "
+                className="bg-jas-blue rounded-lg font-bold text-xl  p-6 no-underline "
               >
                 Scan your file now
               </Button>
               <Button
                 style={{ zIndex: "1000" }}
-                className="text-jas-grey_dark bg-transparent bg-none rounded-xl font-bold text-lg  p-5 no-underline hover:bg-transparent text-jas-grey"
+                className="text-jas-grey_dark bg-transparent bg-none rounded-xl font-bold text-xl  p-5 no-underline hover:bg-transparent text-jas-grey"
               >
                 View demo
               </Button>
@@ -117,20 +117,48 @@ export default async function Home() {
           </div>
           <h1
             className=" text-5xl font-extrabold text-center z-[1000]"
-            style={{ zIndex: 1000, maxWidth:'800px' }}
+            style={{ zIndex: 1000, maxWidth:'700px' }}
           >
             Everything you will ever need in a <span>single place</span>
           </h1>
           <div className="features-contain">
             <div className="feature-item">
-              <div className="tag-mini text-sm font-semibold">
+              <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
                 live feedback
               </div>
-              <h3>Computer Vision screening</h3>
-              <p>real-time, visual representation of problem areas.</p>
+              <h3 className="font-extrabold text-3xl">Computer Vision screening</h3>
+              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>real-time, visual representation of problem areas.</p>
               <Button
+style={{padding:'0'}}
+                className="text-jas-grey bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
+              >
+Try CV now →         
 
-                className="text-jas-grey_dark bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
+</Button>
+            </div>
+            <div className="feature-item">
+              <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
+                resources
+              </div>
+              <h3 className="font-extrabold text-3xl">Computer Vision screening</h3>
+              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>real-time, visual representation of problem areas.</p>
+              <Button
+style={{padding:'0'}}
+                className="text-jas-grey bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
+              >
+Try CV now →         
+
+</Button>
+            </div>
+            <div className="feature-item">
+              <div className="tag-mini text-md font-semibold p-2 rounded-md" style={{color:'#14B91B', width: 'fit-content', backgroundColor:'#E2FDE3'}}>
+                tracking
+              </div>
+              <h3 className="font-extrabold text-3xl">Computer Vision screening</h3>
+              <p className="font-semibold text-2xl" style={{color:"#6E6E6E"}}>real-time, visual representation of problem areas.</p>
+              <Button
+style={{padding:'0'}}
+                className="text-jas-grey bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
               >
 Try CV now →         
 
