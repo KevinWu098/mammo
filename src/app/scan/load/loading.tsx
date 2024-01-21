@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 const Loading = ({ fileSize }: { fileSize: number }) => {
   const percentage = Math.floor((fileSize / 90) * 100);
   const [progress, setProgress] = useState(30);
+
   return (
     <div className="flex gap-10 p-8 items-center h-full justify-center relative bg-jas-grey_light rounded-[2rem]">
       <div className="flex justify-center flex-1 flex-col items-center gap-8 relative w-full h-full">
