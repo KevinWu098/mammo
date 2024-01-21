@@ -22,15 +22,15 @@ export default async function Home() {
   //     : null;
 
   return (
-    <main className="wrapper w-full">
+    <main className="w-full">
       {/* nav bar */}
       <div
-        style={{ zIndex: "1000" }}
-        className="flex flex-row items-center justify-center align-center  w-full-screen p-1"
+        style={{ zIndex: "1000"}}
+        className="nav-bar flex flex-row items-center justify-center align-center  w-full-screen p-1"
       >
         <div>
           <Image
-            src={"/mammothLogoLong.svg"}
+            src={"/mammothLogo.png"}
             width={150}
             alt="mammoth logo"
             height={40}
@@ -88,7 +88,7 @@ export default async function Home() {
           <div className="flex flex-col gap-8">
             <h1
               className="text-5xl font-extrabold text-center"
-              style={{ zIndex: "1000", padding: "0 10vw" }}
+              style={{ zIndex: "1000", padding: "0 10vw", width: '1000px' }}
             >
               Get <span style={{ color: "#0094FF" }}>✓</span>affordable,{" "}
               <span style={{ color: "#0094FF" }}>→</span>quick, actionable
@@ -112,12 +112,12 @@ export default async function Home() {
         </div>
         {/* features */}
         <div className="landing-contain">
-          <div className="tag font-semibold bg-jas-grey_dark p-2 rounded-2xl flex items-center w-fit">
+          <div className="tag font-semibold bg-jas-grey_light p-2 rounded-2xl flex items-center w-fit">
             Generative AI
           </div>
           <h1
-            className="landing-contain text-5xl font-extrabold text-center z-[1000]"
-            style={{ zIndex: 1000 }}
+            className=" text-5xl font-extrabold text-center z-[1000]"
+            style={{ zIndex: 1000, maxWidth:'800px' }}
           >
             Everything you will ever need in a <span>single place</span>
           </h1>
@@ -127,6 +127,14 @@ export default async function Home() {
                 live feedback
               </div>
               <h3>Computer Vision screening</h3>
+              <p>real-time, visual representation of problem areas.</p>
+              <Button
+
+                className="text-jas-grey_dark bg-transparent bg-none rounded-xl font-bold text-2xl no-underline hover:bg-transparent text-jas-grey"
+              >
+Try CV now →         
+
+</Button>
             </div>
           </div>
         </div>
