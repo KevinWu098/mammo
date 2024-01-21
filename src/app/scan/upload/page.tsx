@@ -28,7 +28,7 @@ const Page = () => {
                     <IconizedBadge icon={<HeartPulse />} title="heart health" />
                 </div>
             </div>
-            <Card className=" flex bottom-8 outline-dashed outline-4 outline-jas-grey">
+            <Card className=" flex bottom-8 outline-dashed outline-4 outline-jas-grey rounded-2xl">
                 <div className=" flex flex-col py-8 w-[40rem] justify-center items-center px-32 gap-6">
                     <FileUp size={90} color="#8B8B8B" />
                     <h1 className="font-bold text-3xl text-jas-grey_dark">
