@@ -54,8 +54,8 @@ export default function RootLayout({
                             </Link>
                             <Link href="/chat">
                                 <PageSidebarSlot
-                                    title="act"
-                                    value="act"
+                                    title="chat"
+                                    value="chat"
                                     icon={<Zap fill="white" strokeWidth={0} />}
                                     selected={false}
                                 />
