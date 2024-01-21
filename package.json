@@ -36,6 +36,7 @@
         "axios": "^1.6.5",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
+        "framer-motion": "^10.18.0",
         "lucide-react": "^0.303.0",
         "next": "^14.0.3",
         "node-html-parser": "^6.1.12",
