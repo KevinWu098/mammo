@@ -138,6 +138,7 @@ const Page = () => {
           <div className="flex relative w-full justify-center">
             <Image
               src={"chart.svg"}
+              alt="tim's cute chart"
               width={100}
               height={100}
               className="w-3/5"
