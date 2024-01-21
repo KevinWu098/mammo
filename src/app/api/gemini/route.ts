@@ -93,19 +93,7 @@ export async function POST(
             {
                 "role": "model",
                 "parts": {
-                    "text": `I will answer in an array of objects format. If it is some sort of explanation, the key will be "text". If I recommend an action you should take, the key will be "action". I will always include an "action_link" key for every "action". The "action_link" will be something that I will search up online to take that action. For example, if I am encouraging you to eat a certain food like broccoli, I will give an ACTION_LINK to search up: "where to buy broccoli". Example:
-                        [
-                            {
-                                "text": "Eat plenty of foods filled with antioxidants, like strawberries.",
-                                "action": "Eat some strawberries.",
-                                "action_link": "Where to buy strawberries"
-                            },
-                            {
-                                "text": "Exercising can improve overall health and outcomes.",
-                                "action": "Exercise at home.",
-                                "action_link": "Easy exercises at home"
-                            },
-                        ]`
+                    "text": `I will answer in an array of objects format. If it is some sort of explanation, the key will be "text". If I recommend an action you should take, the key will be "action". I will always include an "action_link" key for every "action". The "action_link" will be something that I will search up online to take that action. For example, if I am encouraging you to eat a certain food like broccoli, I will give an ACTION_LINK to search up: "where to buy broccoli". Also, classify each action into one of the following categories: "self-care", "purchase", "diet", "medical", "exercise", and "other". If there is no action, classify the text into one of the categories. If nothing fits, use "other". Example: [{"text": "Eat plenty of foods filled with antioxidants, like strawberries.","action": "Eat some strawberries.","action_link": "Where to buy strawberries","action_tag":"diet"},{"text": "Exercising can improve overall health and outcomes.","action": "Exercise at home.","action_link": "Easy exercises at home","action_tag":"exercise"}]`
                 },
             },
             {
@@ -155,6 +143,7 @@ export async function POST(
             }
             geminiTextObject[actionIndex] = step
         }
+        // console.log(JSON.stringify(geminiTextObject))
         const nextRes = NextResponse.json({
             data: geminiTextObject
         }, { status: 201 });
@@ -163,13 +152,7 @@ export async function POST(
         console.error(geminiRes.candidates)
         console.error(e);
         return NextResponse.json({
-            data: `[
-                        {
-                            "text": "I cannot answer this. Please consult a licensed doctor for more information.",
-                            "action": "Consult a licensed doctor for more information.",
-                            "action_link": "${await getFirstResultLink("doctors near me")}"
-                        },
-                    ]`
+            data: `[{"text": "I cannot answer this. Please consult a licensed doctor for more information.","action": "Consult a licensed doctor for more information.","action_link": "${await getFirstResultLink("doctors near me")}","action_tag":"medical"},]`
         }, { status: 201 });
     }
 }
