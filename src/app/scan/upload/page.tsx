@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { MouseEventHandler, MouseEvent, useCallback, useState } from "react";
 import IconizedBadge from "@/components/IconizedBadge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,6 +22,40 @@ const Page = () => {
     noKeyboard: true,
     maxFiles: 1,
   });
+
+  const handleUpload: MouseEventHandler<HTMLButtonElement> = (event: any) => {
+    event.preventDefault();
+    // post to the fastAPI backend where the mammogram model lives
+    if (!process.env.NEXT_PUBLIC_MAMMOGRAM_MODEL_ENDPOINT) {
+      console.error("Missing mammogram model endpoint");
+      return;
+    }
+
+    const MammogramModelEndpoint = process.env.NEXT_PUBLIC_MAMMOGRAM_MODEL_ENDPOINT + "/detect";
+    // convert image to base64 to compress
+    const fileUpload = file[0];
+    // create a reader to convert to base64 and hit the fastapi backend
+    let reader = new FileReader();
+
+    reader.onloadend = async (e) => {
+
+      const base64String = (reader.result as string)
+        .replace('data:', '')
+        .replace(/^.+,/, '');
+
+      let formData = new FormData();
+      formData.append('image', base64String);
+
+      const res = await fetch(MammogramModelEndpoint, {
+        method: 'POST',
+        body: formData
+      });
+
+      console.log(await res.json())
+    };
+
+    reader.readAsDataURL(fileUpload);
+  }
 
   return (
     <div className="flex flex-col gap-8 items-center h-full justify-center relative bg-jas-grey_light rounded-[2rem]">
@@ -78,7 +112,7 @@ const Page = () => {
       </Card>
 
       {file.length > 0 && (
-        <Button className="mx-auto bg-green-500 hover:bg-green-500/80">
+        <Button className="mx-auto bg-green-500 hover:bg-green-500/80" onClick={handleUpload}>
           Submit
         </Button>
       )}
