@@ -11,7 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { SelfLoveTag } from "@/components/ui/tag";
 import { useChat } from "ai/react";
-import { ArrowUp, MoveDiagonal, Plus, Sparkles } from "lucide-react";
+import { ArrowUp, Loader2, MoveDiagonal, Plus, Sparkles } from "lucide-react";
 
 const messages = [
   { id: 1, role: "user", content: "What should I eat?" },
@@ -105,20 +105,43 @@ export default function Chat() {
             {messages.map((m, index) => (
               <div key={m.id}>
                 {m.role === "user" ? (
-                  <div className="bg-jas-grey_light rounded-xl p-4 flex flex-col gap-y-2">
-                    <div className="flex items-center gap-x-2 flex-row">
-                      <Avatar className="size-8">
-                        <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          alt="@shadcn"
-                        />
-                        <AvatarFallback>M</AvatarFallback>
-                      </Avatar>
-                      <span className="font-bold text-xl">you</span>
+                  <div className="space-y-4">
+                    <div className="bg-jas-grey_light rounded-xl p-4 flex flex-col gap-y-2">
+                      <div className="flex items-center gap-x-2 flex-row">
+                        <Avatar className="size-8">
+                          <AvatarImage
+                            src="https://github.com/shadcn.png"
+                            alt="@shadcn"
+                          />
+                          <AvatarFallback>M</AvatarFallback>
+                        </Avatar>
+                        <span className="font-bold text-xl">you</span>
+                      </div>
+                      <div className="text-black text-opacity-50 font-semibold flex-nowrap break-words max-w-[500px]">
+                        <span className="min-w-0">{m.content}</span>
+                      </div>
                     </div>
-                    <div className="text-black text-opacity-50 font-semibold">
-                      {m.content}
-                    </div>
+
+                    {index == messages.length - 1 && m.role == "user" && (
+                      <div className="bg-[#D3D8DC] rounded-xl p-4 flex flex-row gap-x-2">
+                        <Avatar className="size-8">
+                          <AvatarImage
+                            src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3212952/robot-icon-md.png"
+                            alt="@agentic"
+                          />
+                          <AvatarFallback>A</AvatarFallback>
+                        </Avatar>
+                        <div className="flex gap-y-2 flex-col">
+                          <div className="flex items-center gap-x-2 flex-row">
+                            <span className="font-bold text-xl">
+                              your AI doc
+                            </span>
+                          </div>
+
+                          <Loader2 className="animate-spin mx-auto" />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <>
@@ -134,8 +157,8 @@ export default function Chat() {
                         <div className="flex items-center gap-x-2 flex-row">
                           <span className="font-bold text-xl">your AI doc</span>
                         </div>
-                        <div className="text-black text-opacity-50 font-semibold">
-                          {m.content}
+                        <div className="text-black text-opacity-50 font-semibold flex-nowrap break-words max-w-[500px]">
+                          <span className="min-w-0">{m.content}</span>
                         </div>
                       </div>
                     </div>
