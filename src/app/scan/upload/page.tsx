@@ -31,7 +31,7 @@ const Page = () => {
   const [submitted, setSubmitted] = useState(false);
   const [segmentedImage, setSegmentedImage] = useState<string>();
   const [coordinates, setCoordinates] = useState([]);
-
+  const segmentedImageRef = React.useRef<HTMLImageElement>(null);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFile(acceptedFiles);
   }, []);
@@ -66,7 +66,7 @@ const Page = () => {
       })
         .then(function (response) {
           console.log(response.data);
-          setCoordinates(response.data.coordinates);
+          setCoordinates(response.data.predictions);
           const url = URL.createObjectURL(fileUpload);
           setSegmentedImage(url);
         })
@@ -101,16 +101,47 @@ const Page = () => {
       <Loading fileSize={30} />
     ) : (
       <div className="flex  gap-8 p-8 items-center h-full justify-center relative bg-jas-grey_light  rounded-[2rem]">
-        <div className="flex flex-1 flex-col items-center gap-4 relative w-full h-full">
-          <h1 className="text-4xl font-extrabold w-full">Your Scan</h1>
-          <Card className="flex w-full h-full rounded-3xl">
-            {segmentedImage ? (
-              <img
-                src={segmentedImage}
-                alt="test"
-                className="rounded-3xl p-1"
-              />
-            ) : null}
+        <div className="flex flex-1 flex-col items-center gap-4 relative w-full h-full relative">
+          <h1 className="text-4xl font-extrabold w-full r">Your Scan</h1>
+          <Card className="flex w-full h-full rounded-3xl relative">
+            <>
+              {segmentedImage ? (
+                <img
+                  src={segmentedImage}
+                  alt="test"
+                  className="rounded-3xl p-1"
+                  ref={segmentedImageRef}
+                />
+              ) : null}
+              {segmentedImage &&
+                segmentedImageRef?.current &&
+                coordinates.map((coordinate: any) => {
+                  console.log(segmentedImageRef.current!.width);
+                  return (
+                    <div
+                      style={{
+                        width:
+                          (coordinate.width / 1024) *
+                          segmentedImageRef.current!.width,
+                        height:
+                          (coordinate.height / 1024) *
+                          segmentedImageRef.current!.height,
+                        position: "absolute",
+                        top:
+                          (coordinate.y / 1024) *
+                            segmentedImageRef.current!.height -
+                          coordinate.height / 4,
+                        left:
+                          (coordinate.x / 1024) *
+                            segmentedImageRef.current!.width -
+                          coordinate.width / 4,
+
+                        border: "2px solid red",
+                      }}
+                    ></div>
+                  );
+                })}
+            </>
           </Card>
 
           <Card className=" flex flex-col p-8 rounded-3xl w-full justify-evenly gap-2">

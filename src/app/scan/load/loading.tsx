@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 
 const Loading = ({ fileSize }: { fileSize: number }) => {
   const percentage = Math.floor((fileSize / 90) * 100);
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(35);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
