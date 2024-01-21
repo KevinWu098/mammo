@@ -99,7 +99,7 @@ const Page = () => {
                         <AvatarFallback>M</AvatarFallback>
                     </Avatar>
 
-                    <CardTitle className="text-4xl">Jane D.</CardTitle>
+                    <CardTitle className="text-4xl font-extrabold">Jane D.</CardTitle>
                 </CardHeader>
 
                 <CardContent className="mx-[3.85rem]">

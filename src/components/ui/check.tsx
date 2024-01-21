@@ -11,9 +11,9 @@ function check({props}:{props: checkProps}) {
     }
   return (
     <div>
-      <Card className="rounded-3xl flex gap-4 p-4 w-full items-center align-center justify-between h-full :hover " style={{border:"4px solid #0094FF"}}>
+      <Card className="rounded-3xl flex gap-4 p-4 w-full items-center align-center justify-between h-full" style={{border:"4px solid #0094FF"}}>
             <div className="flex gap-4 h-full items-center">
-               <input type="checkbox" onClick={handleClick} className='form-checkbox bg-jas-blue h-6 w-6 rounded-xl'/>
+               <input type="checkbox" onClick={handleClick} className=' cursor-pointer form-checkbox bg-jas-blue h-6 w-6 rounded-xl hover:bg-jas-blue'/>
                 <div className="flex flex-col justify-between h-full gap-2">
                     <h1 className="text-xl font-extrabold">{props.title}</h1>
                     
