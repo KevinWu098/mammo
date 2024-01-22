@@ -21,4 +21,4 @@
   <br>
 </p>
 
-### 🥇 RoseHack 2024 UI/UX Track Winner
+### 🏅 RoseHack 2024 UI/UX Track Winner
