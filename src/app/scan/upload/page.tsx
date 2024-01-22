@@ -57,7 +57,7 @@ const Page = () => {
         method: "POST",
         url: "https://detect.roboflow.com/mammography-mass-detection/1",
         params: {
-          api_key: "HSdTeiyFQoC21khAVkwp",
+          api_key: process.env.ROBOFLOW_API_KEY,
         },
         data: base64String,
         headers: {
