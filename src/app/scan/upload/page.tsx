@@ -1,6 +1,5 @@
 "use client";
 
-import fs from "fs";
 import React, {
   MouseEvent,
   MouseEventHandler,
@@ -8,23 +7,14 @@ import React, {
   useState,
 } from "react";
 import Loading from "../load/loading";
-import ActionCard from "@/components/ActionCard";
 import Analysis from "@/components/Analysis";
 import IconizedBadge from "@/components/IconizedBadge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
-import { LocationTag } from "@/components/ui/tag";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import {
-  AlertTriangle,
-  FileUp,
-  HeartPulse,
-  ScrollText,
-  Stethoscope,
-} from "lucide-react";
+import { FileUp, HeartPulse, Stethoscope } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
 const Page = () => {
@@ -57,7 +47,7 @@ const Page = () => {
         method: "POST",
         url: "https://detect.roboflow.com/mammography-mass-detection/1",
         params: {
-          api_key: process.env.ROBOFLOW_API_KEY,
+          api_key: process.env.NEXT_PUBLIC_ROBOFLOW_API_KEY,
         },
         data: base64String,
         headers: {
