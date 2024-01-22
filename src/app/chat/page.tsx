@@ -193,9 +193,7 @@ export default function Chat() {
           />
 
           <Button type="submit" className="h-12 w-12 rounded-xl">
-            <ArrowUp 
-            style={{fontSize:'30px'}}
-            />
+            <ArrowUp style={{ fontSize: "30px" }} />
           </Button>
         </form>
       </div>

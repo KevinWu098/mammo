@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { Card } from "./card";
 
 interface checkProps {
@@ -20,7 +19,13 @@ function check(props: checkProps) {
             className=" cursor-pointer form-checkbox bg-jas-blue h-6 w-6 rounded-xl hover:bg-jas-blue"
           />
           <div className="flex flex-col justify-between h-full gap-2">
-            <h1 className={`text-xl font-extrabold ${props.checked ? "line-through" : null}`}>{props.title}</h1>
+            <h1
+              className={`text-xl font-extrabold ${
+                props.checked ? "line-through" : null
+              }`}
+            >
+              {props.title}
+            </h1>
           </div>
         </div>
       </Card>

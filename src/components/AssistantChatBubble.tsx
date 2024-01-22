@@ -1,11 +1,10 @@
 import React, { Dispatch, MouseEvent, SetStateAction } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
 import { Action } from "@/app/chat/page";
 import { Separator } from "@radix-ui/react-separator";
 import { Message } from "ai";
 import { MoveDiagonal, Plus, Sparkles } from "lucide-react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 
 function AssistantChatBubble({
   index,
@@ -21,24 +20,24 @@ function AssistantChatBubble({
   actions: Action[];
 }) {
   // parse the message into many smaller messages
-    // TODO: probably do some error catching if possible in case the Gemini output is malformed
-    console.log(m.content);
-    const mJSON = JSON.parse(m.content);
+  // TODO: probably do some error catching if possible in case the Gemini output is malformed
+  console.log(m.content);
+  const mJSON = JSON.parse(m.content);
 
-    let mJSONBlocks = mJSON.data;
-    
-    // check if the thing is an object
-    if (typeof mJSONBlocks[0] !== "object") {
-        // fallback
-        mJSONBlocks = [
-            {
-                text: "I cannot answer this. Please consult a licensed doctor for more information.",
-                action: "Consult a licensed doctor for more information.",
-                action_link: "https://doctor.webmd.com",
-                action_tag: "medical"
-            }
-        ]
-    }
+  let mJSONBlocks = mJSON.data;
+
+  // check if the thing is an object
+  if (typeof mJSONBlocks[0] !== "object") {
+    // fallback
+    mJSONBlocks = [
+      {
+        text: "I cannot answer this. Please consult a licensed doctor for more information.",
+        action: "Consult a licensed doctor for more information.",
+        action_link: "https://doctor.webmd.com",
+        action_tag: "medical",
+      },
+    ];
+  }
 
   // generate a separate bubble for each
 
@@ -71,19 +70,17 @@ function AssistantChatBubble({
   return (
     <>
       {mJSONBlocks.map(
-        (
-          message: {
-            text: string;
-            action?: string;
-            action_link?: string;
-            action_tag?: string;
-          },
-        ) => {
+        (message: {
+          text: string;
+          action?: string;
+          action_link?: string;
+          action_tag?: string;
+        }) => {
           const messageContent = message.text;
-              const messageAction = message.action;
-              const messageLink = message.action_link;
-              console.log(messageAction)
-              console.log(messageLink)
+          const messageAction = message.action;
+          const messageLink = message.action_link;
+          console.log(messageAction);
+          console.log(messageLink);
           const messageTag = message.action_tag;
           return (
             <React.Fragment key={messageContent}>
@@ -106,7 +103,7 @@ function AssistantChatBubble({
               </div>
 
               {m.role == "assistant" ? (
-              <div className="flex-center flex-col gap-y-2 mb-8 mt-2">
+                <div className="flex-center flex-col gap-y-2 mb-8 mt-2">
                   {messageAction && messageLink ? (
                     <>
                       <Button
