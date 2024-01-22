@@ -52,7 +52,7 @@ const Analysis = ({ segmentedImage, coordinates }: AnalysisProps) => {
               coordinates.map((coordinate) => {
                 return (
                   <div
-                    key={coordinate.class_id}
+                    key={`${coordinate.x}, ${coordinate.y}`}
                     style={{
                       width:
                         (coordinate.width / 1024) *
