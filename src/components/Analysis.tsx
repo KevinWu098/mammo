@@ -7,7 +7,22 @@ import { Card } from "./ui/card";
 import { DietTag, LocationTag } from "./ui/tag";
 import { AlertTriangle, ScrollText } from "lucide-react";
 
-const Analysis = ({ image: segmentedImage, coordinates }) => {
+type Coordinate = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  confidence: number;
+  class: string;
+  class_id: number;
+};
+
+interface AnalysisProps {
+  segmentedImage: string;
+  coordinates: Coordinate[];
+}
+
+const Analysis = ({ segmentedImage, coordinates }: AnalysisProps) => {
   const segmentedImageRef = React.useRef<HTMLImageElement>(null);
 
   const [key, setKey] = useState(1);

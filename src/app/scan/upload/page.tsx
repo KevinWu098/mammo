@@ -81,7 +81,9 @@ const Page = () => {
     return submitted && !segmentedImage ? (
       <Loading fileSize={30} />
     ) : (
-      <Analysis image={segmentedImage} coordinates={coordinates} />
+      segmentedImage && (
+        <Analysis segmentedImage={segmentedImage} coordinates={coordinates} />
+      )
     );
   }
 
