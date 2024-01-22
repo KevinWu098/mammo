@@ -7,7 +7,7 @@ import { db } from "@/db";
 // import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Loader2, Square } from "lucide-react";
 import { motion } from "framer-motion"
-
+import Textra from "react-textra";
 export default async function Home() {
 //   const { getUser } = getKindeServerSession();
 //   const user = await getUser();
@@ -79,7 +79,17 @@ export default async function Home() {
           />
           <div className="flex flex-col gap-8">
              <h1 className="text-5xl font-extrabold text-center" style={{zIndex:'1000', padding: '0 10vw'}}>
-          Get <span style={{color:"#0094FF"}}>✓</span>affordable, <span style={{color:"#0094FF"}}>→</span>quick, actionable cancer insights. completely free.
+          Get 
+                <Textra
+                  effect="downTop"
+    
+                  data={[
+                    "✓ actionable",
+                    "→ quick",
+                    "❤ patient-centered",
+                  ]}
+                />
+               insights. completely free.
         </h1>
         <div className="flex-center flex-col g-18">
             <Button style={{zIndex:'1000'}} className="bg-jas-blue rounded-lg font-bold text-lg  p-6 no-underline ">
