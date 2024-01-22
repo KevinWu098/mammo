@@ -1,4 +1,4 @@
-# Mammo
+# [Mammo](https://devpost.com/software/mammo)
 > ### Breast Health, Made Actionable
 
 <p align="center">
@@ -21,4 +21,4 @@
   <br>
 </p>
 
-### 🏅 RoseHack 2024 UI/UX Track Winner
+### 🏅 Rose Hack 2024 UI/UX Track Winner
