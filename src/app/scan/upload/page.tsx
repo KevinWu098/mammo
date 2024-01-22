@@ -1,19 +1,37 @@
 "use client";
 
-import React, { MouseEventHandler, MouseEvent, useCallback, useState } from "react";
+import fs from "fs";
+import React, {
+  MouseEvent,
+  MouseEventHandler,
+  useCallback,
+  useState,
+} from "react";
+import Loading from "../load/loading";
+import ActionCard from "@/components/ActionCard";
+import Analysis from "@/components/Analysis";
 import IconizedBadge from "@/components/IconizedBadge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
+import { LocationTag } from "@/components/ui/tag";
 import { cn } from "@/lib/utils";
-import { FileUp, HeartPulse, Stethoscope } from "lucide-react";
+import axios from "axios";
+import {
+  AlertTriangle,
+  FileUp,
+  HeartPulse,
+  ScrollText,
+  Stethoscope,
+} from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
 const Page = () => {
   const [file, setFile] = useState<File[]>([]);
+  const [submitted, setSubmitted] = useState(false);
   const [segmentedImage, setSegmentedImage] = useState<string>();
-
+  const [coordinates, setCoordinates] = useState([]);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFile(acceptedFiles);
   }, []);
@@ -26,52 +44,45 @@ const Page = () => {
 
   const handleUpload: MouseEventHandler<HTMLButtonElement> = (event: any) => {
     event.preventDefault();
-    // post to the fastAPI backend where the mammogram model lives
-    if (!process.env.NEXT_PUBLIC_MAMMOGRAM_MODEL_ENDPOINT) {
-      console.error("Missing mammogram model endpoint");
-      return;
-    }
+    setSubmitted(true);
 
-    const MammogramModelEndpoint = process.env.NEXT_PUBLIC_MAMMOGRAM_MODEL_ENDPOINT + "/detect";
-    // convert image to base64 to compress
     const fileUpload = file[0];
-    // create a reader to convert to base64 and hit the fastapi backend
     let reader = new FileReader();
-
     reader.onloadend = async (e) => {
-
       const base64String = (reader.result as string)
-        .replace('data:', '')
-        .replace(/^.+,/, '');
+        .replace("data:", "")
+        .replace(/^.+,/, "");
 
-      let formData = new FormData();
-      formData.append('image', base64String);
-
-      const res = await fetch(MammogramModelEndpoint, {
-        method: 'POST',
-        body: formData
-      });
-
-      // get the response
-      const resJSON = await res.json();
-      const segImg = resJSON.image;
-      // decode it from base64 
-      const decodedData = atob(segImg);
-
-      const arrayBuffer = new ArrayBuffer(decodedData.length);
-      const uint8Array = new Uint8Array(arrayBuffer);
-
-      for (let i = 0; i < decodedData.length; i++) {
-        uint8Array[i] = decodedData.charCodeAt(i);
-      }
-      const blob = new Blob([uint8Array], { type: "image/png" });
-
-      // create the object url to display
-      const objectURL = URL.createObjectURL(blob);
-      setSegmentedImage(objectURL)
+      axios({
+        method: "POST",
+        url: "https://detect.roboflow.com/mammography-mass-detection/1",
+        params: {
+          api_key: process.env.ROBOFLOW_API_KEY,
+        },
+        data: base64String,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+        .then(function (response) {
+          console.log(response.data);
+          setCoordinates(response.data.predictions);
+          const url = URL.createObjectURL(fileUpload);
+          setSegmentedImage(url);
+        })
+        .catch(function (error) {
+          console.log(error.message);
+        });
     };
-
     reader.readAsDataURL(fileUpload);
+  };
+
+  if (submitted || segmentedImage) {
+    return submitted && !segmentedImage ? (
+      <Loading fileSize={30} />
+    ) : (
+      <Analysis image={segmentedImage} coordinates={coordinates} />
+    );
   }
 
   return (
@@ -119,24 +130,25 @@ const Page = () => {
                 )}
               />
 
-              <Button style={{zIndex:'1000'}} className="bg-jas-blue rounded-lg font-bold text-lg  p-6 no-underline ">
-            Select a file from your computer
-          </Button>
+              <Button
+                style={{ zIndex: "1000" }}
+                className="bg-jas-blue rounded-lg font-bold text-lg  p-6 no-underline "
+              >
+                Select a file from your computer
+              </Button>
             </>
           )}
         </div>
       </Card>
 
       {file.length > 0 && (
-        <Button className="mx-auto bg-green-500 hover:bg-green-500/80" onClick={handleUpload}>
+        <Button
+          className="mx-auto bg-green-500 hover:bg-green-500/80"
+          onClick={handleUpload}
+        >
           Submit
         </Button>
       )}
-
-      {/* {
-        segmentedImage ? <Image src={segmentedImage} alt="test" fill={true} /> : null
-      } */}
-
     </div>
   );
 };

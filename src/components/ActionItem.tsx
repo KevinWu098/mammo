@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Action } from "@/app/chat/page";
-
 import ActionCard from "./ActionCard";
 import Check from "./ui/check";
 import { ScrollArea } from "./ui/scroll-area";
-import { DietTag, ExerciseTag, MedicalTag, PurchaseTag, SelfLoveTag } from "./ui/tag";
+import {
+  DietTag,
+  ExerciseTag,
+  MedicalTag,
+  PurchaseTag,
+  SelfLoveTag,
+} from "./ui/tag";
+import { Action } from "@/app/chat/page";
 
 interface ActionItemInterface {
   action: Action;
@@ -34,30 +39,33 @@ const ActionItem = (props: ActionItemInterface) => {
               let tagComponent;
               switch (item.tag) {
                 case "self-care":
-                  tagComponent = <SelfLoveTag />
+                  tagComponent = <SelfLoveTag />;
                   break;
                 case "purchase":
-                  tagComponent = <PurchaseTag />
+                  tagComponent = <PurchaseTag />;
                   break;
                 case "diet":
-                  tagComponent = <DietTag />
+                  tagComponent = <DietTag />;
                   break;
                 case "medical":
-                  tagComponent = <MedicalTag />
+                  tagComponent = <MedicalTag />;
                   break;
                 case "exercise":
-                  tagComponent = <ExerciseTag />
+                  tagComponent = <ExerciseTag />;
                   break;
                 default:
-                  tagComponent = <MedicalTag />
+                  tagComponent = <MedicalTag />;
               }
-              return (<ActionCard
-                props={{
-                  title: item.title,
-                  Tag: tagComponent,
-                  link: item.link,
-                }}
-              />)
+              return (
+                <ActionCard
+                  props={{
+                    title: item.title,
+                    Tag: tagComponent,
+                    link: item.link,
+                    special: "chat",
+                  }}
+                />
+              );
             })}
           </>
         )}

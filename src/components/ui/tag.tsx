@@ -3,6 +3,7 @@ import {
   faAppleWhole,
   faCartShopping,
   faHeart,
+  faLocation,
   faRunning,
   faSuitcaseMedical,
 } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +17,18 @@ export function SelfLoveTag() {
     >
       <FontAwesomeIcon icon={faHeart} />
       <h4 className="font-semibold text-md">self-care</h4>
+    </div>
+  );
+}
+
+export function LocationTag() {
+  return (
+    <div
+      className="p-2 bg-[#E0E5FF] rounded-xl flex items-center gap-x-1"
+      style={{ color: "#466FFF", width: "fit-content" }}
+    >
+      <FontAwesomeIcon icon={faLocation} className="size-5" />
+      <h4 className="font-semibold text-md">location</h4>
     </div>
   );
 }
