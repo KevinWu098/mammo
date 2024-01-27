@@ -37,7 +37,7 @@ const Page = () => {
     setSubmitted(true);
 
     const fileUpload = file[0];
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onloadend = async (e) => {
       const base64String = (reader.result as string)
         .replace("data:", "")
